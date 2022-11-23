@@ -39,7 +39,17 @@ export function AuthPage() {
         .insert({
             name: userObject.name,
             email: userObject.email,
-            pictureUrl: userObject.pictureUrl
+            pictureUrl: userObject.pictureUrl,
+            tasklists: [
+                {
+                    name: "My day",
+                    tasks: {
+                        name: "first task",
+                        createdAt: new Date(),
+                        completed: false,
+                    }
+                }
+            ],
         })
 
         userFromDb = await getUserFromDB(userObject.email);
