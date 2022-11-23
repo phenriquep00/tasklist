@@ -62,11 +62,10 @@ export function TaskContainer() {
                 {
                     tasklist !== ''
                         ?
-                        tasks.length !== 0
+                        tasks.length > 0 && tasks !== undefined
                             ?
                             tasks.map((task: TaskProps, index: any) => (
                                 <Task key={index} name={task.name} createdAt={task.createdAt} />
-
                             ))
                             :
                             <p>All tasks on this list have been completed!</p>
