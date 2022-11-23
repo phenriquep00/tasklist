@@ -1,4 +1,4 @@
-import { KeyboardEventHandler, useContext, useEffect, useRef, useState } from 'react';
+import {  useContext, useRef, useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { TasklistContext } from '../../hooks/TasklistContext';
 import { UserContext } from '../../hooks/UserContext';
@@ -18,7 +18,6 @@ export function CreateTaskInput({ forceTaskUpdate }: CreateTaskInputProps) {
     const [value, setValue] = useState('');
     const [isLoading, setIsloading] = useState(false);
 
-    const tasklistId = useRef('');
     const reference = useRef<any>();
 
     useHotkeys('shift+space', () => {
@@ -70,7 +69,6 @@ export function CreateTaskInput({ forceTaskUpdate }: CreateTaskInputProps) {
         const currentActiveTasklist: any = await getCurrentTasklistData();
 
         let ModifyedTasklistWithNewlyCreatedTask: any = []
-
 
         userTotalTasklists.map((tsklst: any) => {
             // find the tasklist that has the same name as the current tasklist
@@ -140,7 +138,7 @@ export function CreateTaskInput({ forceTaskUpdate }: CreateTaskInputProps) {
                             ?
                             <input
                                 ref={reference}
-                                className="flex flex-row items-center bg-ctp-flamingo w-11/12 h-16 placeholder-ctp-overlay0 px-6 py-4 rounded-md border-4 border-ctp-mauve text-ctp-crust text-lg font-bold ring-ctp-sky ring-offset-ctp-lavender"
+                                className="flex flex-row items-center bg-ctp-lavender w-11/12 h-16 placeholder-ctp-overlay0 px-6 py-4 rounded-md border-4 border-ctp-mauve text-ctp-crust text-lg font-bold ring-ctp-sky ring-offset-ctp-lavender"
                                 onChange={(text) => setValue(text.target.value)}
                                 onKeyDown={handleKeyDown}
                                 type="text"

@@ -7,7 +7,7 @@ import { Loading } from "../Loading/Loading";
 import { CreateTaskInput } from "./CreateTaskInput";
 import { Task } from "./Task";
 
-export interface TaskProps {
+interface TaskProps {
     name: string;
     createdAt: string;
 
@@ -26,18 +26,18 @@ export function TaskContainer() {
 
         let totalTasklists = []
         let matchingTasklist = {}
-        
+
         await supabase
-        .from('user')
-        .select('tasklists')
-        .eq('email', data.email)
-        .then(({data}) => {
-            //@ts-ignore
-            totalTasklists = data[0].tasklists
-            totalTasklists.map((tsklst: any) => (
-                tsklst.name == tasklist ? matchingTasklist = tsklst.tasks : null
-            ))
-        });
+            .from('user')
+            .select('tasklists')
+            .eq('email', data.email)
+            .then(({ data }) => {
+                //@ts-ignore
+                totalTasklists = data[0].tasklists
+                totalTasklists.map((tsklst: any) => (
+                    tsklst.name == tasklist ? matchingTasklist = tsklst.tasks : null
+                ))
+            });
 
         return matchingTasklist;
     }
@@ -65,7 +65,9 @@ export function TaskContainer() {
                         tasks.length > 0 && tasks !== undefined
                             ?
                             tasks.map((task: TaskProps, index: any) => (
-                                <Task key={index} name={task.name} createdAt={task.createdAt} />
+
+                                task !== null ? <Task key={index} name={task.name} createdAt={task.createdAt} forceTaskUpdate={getTasks}/> : null
+
                             ))
                             :
                             <p>All tasks on this list have been completed!</p>
