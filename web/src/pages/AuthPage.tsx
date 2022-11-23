@@ -29,7 +29,7 @@ export function AuthPage() {
         setIsloadingActive(true);
         var userObject: any = jwt_decode(response.credential);
         
-        let userFromDb = await getUserFromDB(userObject.email);
+        let userFromDb: any = await getUserFromDB(userObject.email);
 
         userFromDb !== undefined && userFromDb !== '' ?
          setUser(JSON.stringify(userFromDb)) 
@@ -55,8 +55,13 @@ export function AuthPage() {
         })
 
         userFromDb = await getUserFromDB(userObject.email);
-        userFromDb !== undefined && userFromDb !== '' ?
-         setUser(JSON.stringify(userFromDb)) 
+        let newUserFromDb = {
+            name: userFromDb.name,
+            email: userFromDb.email,
+            pictureUrl: userFromDb.pictureUrl
+        }
+        newUserFromDb !== undefined  ?
+         setUser(JSON.stringify(newUserFromDb)) 
          :
          console.log('could not log in')
 
