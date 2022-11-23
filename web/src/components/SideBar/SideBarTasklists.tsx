@@ -1,5 +1,6 @@
 import axios from "axios";
 import { JSXElementConstructor, ReactElement, ReactFragment, ReactPortal, useEffect, useState } from "react";
+import { supabase } from "../../supabaseClient";
 import { Loading } from "../Loading/Loading";
 import { SideBarTasklistsUniqueList } from "./SideBarTasklistsUniqueList";
 
@@ -21,6 +22,15 @@ export function SideBarTasklists({ email }: SideBarTasklistsProps) {
     const getUserTasklists = async () => {
         setIsLoading(true);
         //TODO: get all tasklists from a user
+        await supabase
+        .from('user')
+        .select('tasklists')
+        .eq('email', email)
+        .then(({data}) => {
+            //@ts-ignore
+            let tasklistsFromDb = data[0].tasklists;
+            setTasklists(tasklistsFromDb)
+        })
         setIsLoading(false);
     };
 
@@ -33,7 +43,7 @@ export function SideBarTasklists({ email }: SideBarTasklistsProps) {
             <Loading active={isLoading} />
             {
                 tasklists.map((tasklist: tasklistProps, index) => (
-                    <SideBarTasklistsUniqueList key={index} name={tasklist.name} color={tasklist.color} />
+                    <SideBarTasklistsUniqueList key={index} name={tasklist.name} />
                 ))
                 }
         </div>

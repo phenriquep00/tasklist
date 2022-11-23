@@ -5,10 +5,9 @@ import { DropdownMenu } from "../DropdownMenu/DropdownMenu";
 
 interface SideBarTasklistsUniqueListProps {
     name: string;
-    color: string;
 }
 
-export function SideBarTasklistsUniqueList({ name, color }: SideBarTasklistsUniqueListProps) {
+export function SideBarTasklistsUniqueList({ name }: SideBarTasklistsUniqueListProps) {
 
     const { tasklist, setTasklist } = useContext(TasklistContext);
 
