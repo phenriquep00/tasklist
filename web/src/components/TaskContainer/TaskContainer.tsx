@@ -2,30 +2,53 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { TasklistContext } from "../../hooks/TasklistContext";
 import { UserContext } from "../../hooks/UserContext";
+import { supabase } from "../../supabaseClient";
 import { Loading } from "../Loading/Loading";
 import { CreateTaskInput } from "./CreateTaskInput";
 import { Task } from "./Task";
 
-export interface taskProps {
-    description: string;
+export interface TaskProps {
+    name: string;
     createdAt: string;
-    priority: boolean;
+
 }
 
-//'/tasks/:userEmail/:tasklist'
 export function TaskContainer() {
 
     const { user, setUser } = useContext(UserContext);
-    const [tasks, setTasks] = useState([]);
+    const { tasklist, setTasklist } = useContext(TasklistContext);
+
+    const [tasks, setTasks] = useState<any>([]);
     const [isLoading, setIsloading] = useState(false);
     const data = JSON.parse(user);
+
+    const getCurrentTasklistData = async () => {
+
+        let totalTasklists = []
+        let matchingTasklist = {}
+        
+        await supabase
+        .from('user')
+        .select('tasklists')
+        .eq('email', data.email)
+        .then(({data}) => {
+            //@ts-ignore
+            totalTasklists = data[0].tasklists
+            totalTasklists.map((tsklst: any) => (
+                tsklst.name == tasklist ? matchingTasklist = tsklst.tasks : null
+            ))
+        });
+
+        return matchingTasklist;
+    }
 
     const getTasks = async () => {
         setIsloading(true);
         //TODO: get all tasks from current tasklist
+        const currentTasklist = await getCurrentTasklistData();
+        setTasks(currentTasklist);
         setIsloading(false);
     }
-    const { tasklist, setTasklist } = useContext(TasklistContext);
 
     useEffect(() => {
         getTasks();
@@ -41,8 +64,8 @@ export function TaskContainer() {
                         ?
                         tasks.length !== 0
                             ?
-                            tasks.map((task: taskProps, index) => (
-                                <Task key={index} description={task.description} createdAt={task.createdAt} priority={task.priority} />
+                            tasks.map((task: TaskProps, index: any) => (
+                                <Task key={index} name={task.name} createdAt={task.createdAt} />
 
                             ))
                             :

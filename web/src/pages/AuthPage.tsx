@@ -43,11 +43,13 @@ export function AuthPage() {
             tasklists: [
                 {
                     name: "My day",
-                    tasks: {
+                    tasks: [
+                        {
                         name: "first task",
                         createdAt: new Date(),
                         completed: false,
                     }
+                ]
                 }
             ],
         })
