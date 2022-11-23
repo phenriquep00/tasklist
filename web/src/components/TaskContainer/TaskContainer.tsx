@@ -70,7 +70,7 @@ export function TaskContainer() {
                             :
                             <p>All tasks on this list have been completed!</p>
                         :
-                        <p>Select a Tasklist and start creating tasks</p>
+                        <p className="text-4xl text-ctp-sky font-bold">Select a Tasklist and start creating tasks</p>
                 }
 
             </div>

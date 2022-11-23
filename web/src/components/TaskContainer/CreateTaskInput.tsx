@@ -83,7 +83,7 @@ export function CreateTaskInput({ forceTaskUpdate }: CreateTaskInputProps) {
                         completed: false,
                     }
                 )
-            
+
                 ModifyedTasklistWithNewlyCreatedTask = tsklst;
             }
         });
@@ -110,12 +110,12 @@ export function CreateTaskInput({ forceTaskUpdate }: CreateTaskInputProps) {
         // console.log(newUserTotalTasklists);
         //post new task
         await supabase
-        .from('user')
-        .update({tasklists: newUserTotalTasklists})
-        .eq('email', data.email)
-        .then(() => {
-            console.log('tasks updated')
-        })
+            .from('user')
+            .update({ tasklists: newUserTotalTasklists })
+            .eq('email', data.email)
+            .then(() => {
+                console.log('tasks updated')
+            })
         setIsloading(false);
         forceTaskUpdate();
     };
@@ -131,21 +131,27 @@ export function CreateTaskInput({ forceTaskUpdate }: CreateTaskInputProps) {
             {
                 isLoading
                     ?
-                    <div className="flex flex-row items-center justify-center w-11/12 h-16 px-6 rounded-md border-4 border-ctp-mauve text-ctp-crust text-lg font-bold ring-ctp-sky ring-offset-ctp-lavender">
+                    <div className="flex flex-row items-center justify-center w-11/12 h-16 px-6 rounded-md border-4 border-ctp-mauve ring-ctp-sky ring-offset-ctp-lavender">
                         <Loading active={isLoading} />
                     </div>
                     :
                     (
-                        <input
-                            ref={reference}
-                            className="flex flex-row items-center bg-ctp-flamingo w-11/12 h-16 placeholder-ctp-overlay0 px-6 py-4 rounded-md border-4 border-ctp-mauve text-ctp-crust text-lg font-bold ring-ctp-sky ring-offset-ctp-lavender"
-                            onChange={(text) => setValue(text.target.value)}
-                            onKeyDown={handleKeyDown}
-                            type="text"
-                            name=""
-                            id=""
-                            placeholder="Create a task [shift + space]"
-                        />
+                        tasklist !== undefined && tasklist !== ''
+                            ?
+                            <input
+                                ref={reference}
+                                className="flex flex-row items-center bg-ctp-flamingo w-11/12 h-16 placeholder-ctp-overlay0 px-6 py-4 rounded-md border-4 border-ctp-mauve text-ctp-crust text-lg font-bold ring-ctp-sky ring-offset-ctp-lavender"
+                                onChange={(text) => setValue(text.target.value)}
+                                onKeyDown={handleKeyDown}
+                                type="text"
+                                name=""
+                                id=""
+                                placeholder="Create a task [shift + space]"
+                            />
+                            :
+                            <div className="flex flex-row items-center justify-center w-11/12 h-16 px-6 rounded-md border-4 border-ctp-mauve text-lg font-bold ring-ctp-sky ring-offset-ctp-lavender text-ctp-text">
+                                <p>Select a tasklist</p>
+                            </div>
                     )
             }
         </>
