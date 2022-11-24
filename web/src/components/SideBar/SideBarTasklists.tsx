@@ -46,7 +46,7 @@ export function SideBarTasklists({ email }: SideBarTasklistsProps) {
             <Loading active={isLoading} />
             {
                 tasklists.map((tasklist: tasklistProps, index) => (
-                    <SideBarTasklistsUniqueList key={index} name={tasklist.name} />
+                    tasklist !== null && <SideBarTasklistsUniqueList key={index} name={tasklist.name} />
                 ))
                 }
         </div>

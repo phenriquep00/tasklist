@@ -1,4 +1,4 @@
-import {  useContext, useRef, useState } from 'react';
+import { useContext, useRef, useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { TasklistContext } from '../../hooks/TasklistContext';
 import { UserContext } from '../../hooks/UserContext';
@@ -55,7 +55,8 @@ export function CreateTaskInput({ forceTaskUpdate }: CreateTaskInputProps) {
                 //@ts-ignore
                 totalTasklists = data[0].tasklists
                 totalTasklists.map((tsklst: any) => (
-                    tsklst.name == tasklist ? matchingTasklist = tsklst : null
+                    tsklst !== null &&
+                        tsklst.name == tasklist ? matchingTasklist = tsklst : null
                 ))
             });
 
@@ -72,29 +73,36 @@ export function CreateTaskInput({ forceTaskUpdate }: CreateTaskInputProps) {
 
         userTotalTasklists.map((tsklst: any) => {
             // find the tasklist that has the same name as the current tasklist
-            if (tsklst.name === currentActiveTasklist.name) {
-                // if it is the same tasklist, append the new task to the end of it
-                tsklst.tasks.push(
-                    {
-                        name: nameOfTheNewTask,
-                        createdAt: new Date(),
-                        completed: false,
-                    }
-                )
+            if (tsklst !== null) {
+                if (tsklst.name === currentActiveTasklist.name) {
+                    // if it is the same tasklist, append the new task to the end of it
+                    tsklst.tasks.push(
+                        {
+                            name: nameOfTheNewTask,
+                            createdAt: new Date(),
+                            completed: false,
+                        }
+                    )
 
-                ModifyedTasklistWithNewlyCreatedTask = tsklst;
+                    ModifyedTasklistWithNewlyCreatedTask = tsklst;
+                }
             }
+
+
         });
         // console.log(ModifyedTasklistWithNewlyCreatedTask);
 
         // recreate the json
         const newTasklistsJson: any[] = [];
         userTotalTasklists.map((tsklst: any) => {
-            if (tsklst.name === currentActiveTasklist.name) {
-                newTasklistsJson.push(ModifyedTasklistWithNewlyCreatedTask);
-            } else {
-                newTasklistsJson.push(tsklst);
+            if (tsklst !== null) {
+                if (tsklst.name === currentActiveTasklist.name) {
+                    newTasklistsJson.push(ModifyedTasklistWithNewlyCreatedTask);
+                } else {
+                    newTasklistsJson.push(tsklst);
+                }
             }
+
         });
 
         return newTasklistsJson;

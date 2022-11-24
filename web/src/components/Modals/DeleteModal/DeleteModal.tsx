@@ -6,8 +6,8 @@ import { supabase } from '../../../supabaseClient';
 import { TasklistMenuProps } from '../../TasklistMenu/TasklistMenu';
 import { DeleteModalConfirmButton } from './DeleteModalConfirmButton';
 
-interface DeleteModalProps extends TasklistMenuProps { 
-    forceTaskUpdate: () => void;
+interface DeleteModalProps extends TasklistMenuProps {
+    forceTaskUpdate?: () => void;
 }
 
 export function DeleteModal({ type, task, forceTaskUpdate }: DeleteModalProps) {
@@ -31,7 +31,8 @@ export function DeleteModal({ type, task, forceTaskUpdate }: DeleteModalProps) {
                 //@ts-ignore
                 totalTasklists = data[0].tasklists
                 totalTasklists.map((tsklst: any) => (
-                    tsklst.name == tasklist ? matchingTasklist = tsklst : null
+                    tsklst !== null &&
+                        tsklst.name == tasklist ? matchingTasklist = tsklst : null
                 ))
             });
 
@@ -54,7 +55,7 @@ export function DeleteModal({ type, task, forceTaskUpdate }: DeleteModalProps) {
         return matchResult;
     };
 
-    const rewriteTasklists = async (idOfTheTaskToBeDeleted: string | undefined) => {
+    const rewriteTasklistsForDeleteTask = async (idOfTheTaskToBeDeleted: string | undefined) => {
 
         const userTotalTasklists: any = await getCurrentUserTasklists();
         const currentActiveTasklist: any = await getCurrentTasklistData();
@@ -63,36 +64,73 @@ export function DeleteModal({ type, task, forceTaskUpdate }: DeleteModalProps) {
 
         userTotalTasklists.map((tsklst: any) => {
             // find the tasklist that has the same name as the current tasklist
-            if (tsklst.name === currentActiveTasklist.name) {
-                tsklst.tasks.map((task: any, index: number) => {
-                    if (task !== null) {
-                        if (String(task.name + task.createdAt) == idOfTheTaskToBeDeleted) {
-                            console.log(tsklst.tasks[index])
-                            delete tsklst.tasks[index]
-                        };
-                    }
-                })
+            if (tsklst !== null) {
+                if (tsklst.name === currentActiveTasklist.name) {
+                    tsklst.tasks.map((task: any, index: number) => {
+                        if (task !== null) {
+                            if (String(task.name + task.createdAt) == idOfTheTaskToBeDeleted) {
+                                console.log(tsklst.tasks[index])
+                                delete tsklst.tasks[index]
+                            };
+                        }
+                    })
 
-                ModifyedTasklistWithNewlyCreatedTask = tsklst;
+                    ModifyedTasklistWithNewlyCreatedTask = tsklst;
+                }
             }
+
         });
         // console.log(ModifyedTasklistWithNewlyCreatedTask);
 
         // recreate the json
         const newTasklistsJson: any[] = [];
         userTotalTasklists.map((tsklst: any) => {
-            if (tsklst.name === currentActiveTasklist.name) {
-                newTasklistsJson.push(ModifyedTasklistWithNewlyCreatedTask);
-            } else {
-                newTasklistsJson.push(tsklst);
+            if (tsklst !== null) {
+                if (tsklst.name === currentActiveTasklist.name) {
+                    newTasklistsJson.push(ModifyedTasklistWithNewlyCreatedTask);
+                } else {
+                    newTasklistsJson.push(tsklst);
+                }
             }
+
         });
 
         return newTasklistsJson;
 
     };
 
+    const rewriteTasklistsForDeleteTasklist = async () => {
+        const userTotalTasklists: any = await getCurrentUserTasklists();
+
+
+        let tasklistToBeDeleted = Number()
+        userTotalTasklists.map((tsklst: any) => {
+            // find the tasklist that has the same name as the current tasklist
+            if (tsklst !== null) {
+                if (tsklst.name === tasklist) {
+                    // get the index of the tasklist
+                    tasklistToBeDeleted = userTotalTasklists.indexOf(tsklst);
+                };
+            };
+        });
+        delete userTotalTasklists[tasklistToBeDeleted];
+
+        return userTotalTasklists;
+    }
+
     const handleDeleteTasklist = async () => {
+        setIsloading(true);
+
+        const newUserTotalTasklists: any = await rewriteTasklistsForDeleteTasklist();
+        await supabase
+            .from('user')
+            .update({ tasklists: newUserTotalTasklists })
+            .eq('email', data.email)
+            .then(() => {
+                console.log('tasks updated')
+            });
+        setTasklist('');
+        setIsloading(false);
 
     };
 
@@ -100,7 +138,7 @@ export function DeleteModal({ type, task, forceTaskUpdate }: DeleteModalProps) {
         // rewrite the json releting the old task data
         setIsloading(true);
 
-        const newUserTotalTasklists: any = await rewriteTasklists(task);
+        const newUserTotalTasklists: any = await rewriteTasklistsForDeleteTask(task);
         await supabase
             .from('user')
             .update({ tasklists: newUserTotalTasklists })
@@ -109,7 +147,8 @@ export function DeleteModal({ type, task, forceTaskUpdate }: DeleteModalProps) {
                 console.log('tasks updated')
             });
         setIsloading(false);
-        forceTaskUpdate();
+        forceTaskUpdate &&
+            forceTaskUpdate();
     };
 
     return (
@@ -137,7 +176,7 @@ export function DeleteModal({ type, task, forceTaskUpdate }: DeleteModalProps) {
                                     You are about to delete the tasklist <span className='text-ctp-sky font-bold'>{tasklist}</span> permanently
                                 </span>
 
-                                <DeleteModalConfirmButton isLoading={isLoading} handleClick={handleDeleteTasklist}/>
+                                <DeleteModalConfirmButton isLoading={isLoading} handleClick={handleDeleteTasklist} />
                             </div>
                             :
                             /* the modal was opened from a task */
@@ -146,7 +185,7 @@ export function DeleteModal({ type, task, forceTaskUpdate }: DeleteModalProps) {
                                     You are about to delete a task permanently
                                 </span>
 
-                                <DeleteModalConfirmButton isLoading={isLoading} handleClick={handleDeleteTask}/>
+                                <DeleteModalConfirmButton isLoading={isLoading} handleClick={handleDeleteTask} />
                             </div>
                     }
                 </Dialog.Description>

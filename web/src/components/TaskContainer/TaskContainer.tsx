@@ -34,7 +34,8 @@ export function TaskContainer() {
                 //@ts-ignore
                 totalTasklists = data[0].tasklists
                 totalTasklists.map((tsklst: any) => (
-                    tsklst.name == tasklist ? matchingTasklist = tsklst.tasks : null
+                    tsklst !== null &&
+                        tsklst.name == tasklist ? matchingTasklist = tsklst.tasks : null
                 ))
             });
 
@@ -55,7 +56,15 @@ export function TaskContainer() {
 
     return (
         <main className="flex flex-col w-3/4 h-screen items-center justify-between py-4">
-            <h1 className="text-ctp-text text-4xl font-semibold mb-4">{tasklist}</h1>
+            <h1 className="text-ctp-text text-4xl font-semibold mb-4">
+                {
+                    tasklist !== ''
+                    ?
+                    tasklist
+                    :
+                    'PLEASE SELECT A TASKLIST'
+                }
+            </h1>
             <Loading active={isLoading} />
             <div className="w-11/12 m-2 rounded-lg h-full flex p-2 flex-col gap-2 items-center overflow-y-scroll scrollbar border-2 border-ctp-overlay0">
                 {
@@ -65,7 +74,7 @@ export function TaskContainer() {
                             ?
                             tasks.map((task: TaskProps, index: any) => (
 
-                                task !== null ? <Task key={index} name={task.name} createdAt={task.createdAt} forceTaskUpdate={getTasks}/> : null
+                                task !== null ? <Task key={index} name={task.name} createdAt={task.createdAt} forceTaskUpdate={getTasks} /> : null
 
                             ))
                             :

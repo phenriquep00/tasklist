@@ -7,7 +7,7 @@ import { EditModalButton } from '../Modals/EditModal/EditModalButton';
 export interface TasklistMenuProps {
     type: "task" | "tasklist",
     task?: string,
-    forceTaskUpdate: () => void;
+    forceTaskUpdate?: () => void;
 }
 
 export function TasklistMenu({type, task, forceTaskUpdate}: TasklistMenuProps) {
