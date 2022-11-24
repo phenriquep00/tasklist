@@ -42,7 +42,7 @@ export function SideBarTasklists({ email }: SideBarTasklistsProps) {
     }, [tasklist]);
 
     return (
-        <div className="flex flex-col gap-2 w-11/12 h-2/3 border-2 items-center border-ctp-overlay0 rounded p-2">
+        <div className="flex flex-col gap-2 w-11/12 h-2/3 border-2 items-center border-ctp-overlay0 rounded p-2 overflow-y-scroll scrollbar">
             <Loading active={isLoading} />
             {
                 tasklists.map((tasklist: tasklistProps, index) => (
