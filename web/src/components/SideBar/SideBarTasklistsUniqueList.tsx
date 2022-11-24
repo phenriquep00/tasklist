@@ -18,7 +18,7 @@ export function SideBarTasklistsUniqueList({ name }: SideBarTasklistsUniqueListP
   };
 
   return (
-    <button
+    <div
       onClick={handleSideBarTasklistsUniqueListClick}
       onMouseEnter={() => setIsMouseOver(true)}
       onMouseLeave={() => setIsMouseOver(false)}
@@ -29,6 +29,6 @@ export function SideBarTasklistsUniqueList({ name }: SideBarTasklistsUniqueListP
       {
         isMouseOver && <TasklistMenu type="tasklist"/>
       }
-    </button>
+    </div>
   )
 }
