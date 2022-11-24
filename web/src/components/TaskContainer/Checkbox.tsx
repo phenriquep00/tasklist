@@ -97,7 +97,6 @@ export function Checkbox({ taskId, forceTaskUpdate }: CheckboxProps) {
     };
 
     const handleCompleteTask = async () => {
-        console.log('starting')
         setIsloading(true);
         // new data to return
         const newUserTotalTasklists: any = await rewriteTasklists(taskId);

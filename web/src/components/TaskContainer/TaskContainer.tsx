@@ -69,6 +69,7 @@ export function TaskContainer() {
 
                             ))
                             :
+                            //TODO: fix this
                             <p>All tasks on this list have been completed!</p>
                         :
                         <p className="text-4xl text-ctp-sky font-bold">Select a Tasklist and start creating tasks</p>
