@@ -90,7 +90,10 @@ export function AuthPage() {
         <div className="flex w-screen h-screen flex-col items-center bg-ctp-base justify-center">
             <Logo />
             <h2 className="text-ctp-subtext1 pb-4 font-semibold text-lg">Login to start creating tasks!</h2>
-            <Loading active={isLoadingActive} />
+            <div className="flex items-center justify-center p-4">
+                <Loading active={isLoadingActive} />
+            </div>
+            
             <div id="signInDiv"></div>
         </div>
     );
