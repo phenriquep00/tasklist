@@ -10,7 +10,6 @@ import { Task } from "./Task";
 interface TaskProps {
     name: string;
     createdAt: string;
-
 }
 
 export function TaskContainer() {

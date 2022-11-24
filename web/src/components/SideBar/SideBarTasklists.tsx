@@ -1,5 +1,7 @@
 import axios from "axios";
-import { JSXElementConstructor, ReactElement, ReactFragment, ReactPortal, useEffect, useState } from "react";
+import { JSXElementConstructor, ReactElement, ReactFragment, ReactPortal, useContext, useEffect, useState } from "react";
+import { TasklistContext } from "../../hooks/TasklistContext";
+import { UserContext } from "../../hooks/UserContext";
 import { supabase } from "../../supabaseClient";
 import { Loading } from "../Loading/Loading";
 import { SideBarTasklistsUniqueList } from "./SideBarTasklistsUniqueList";
@@ -17,11 +19,12 @@ interface tasklistProps {
 export function SideBarTasklists({ email }: SideBarTasklistsProps) {
 
     const [tasklists, setTasklists] = useState([]);
+    const {tasklist, setTasklist} = useContext(TasklistContext);
     const [isLoading, setIsLoading] = useState(false);
 
     const getUserTasklists = async () => {
         setIsLoading(true);
-        //TODO: get all tasklists from a user
+
         await supabase
         .from('user')
         .select('tasklists')
@@ -36,7 +39,7 @@ export function SideBarTasklists({ email }: SideBarTasklistsProps) {
 
     useEffect(() => {
         getUserTasklists();
-    }, []);
+    }, [tasklist]);
 
     return (
         <div className="flex flex-col gap-2 w-11/12 h-2/3 border-2 items-center border-ctp-overlay0 rounded p-2">
