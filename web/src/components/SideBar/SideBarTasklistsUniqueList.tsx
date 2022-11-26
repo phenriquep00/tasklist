@@ -28,7 +28,7 @@ export function SideBarTasklistsUniqueList({ name }: SideBarTasklistsUniqueListP
       <p className="font-medium text-base">{name}</p>
 
       {
-        isMouseOver && <TasklistMenu type="tasklist" />
+        isMouseOver && <TasklistMenu/>
       }
     </div>
   )

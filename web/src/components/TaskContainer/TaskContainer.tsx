@@ -44,7 +44,6 @@ export function TaskContainer() {
 
     const getTasks = async () => {
         setIsloading(true);
-        //TODO: get all tasks from current tasklist
         const currentTasklist = await getCurrentTasklistData();
         setTasks(currentTasklist);
         setIsloading(false);
@@ -56,7 +55,7 @@ export function TaskContainer() {
 
     return (
         <main className="flex flex-col w-3/4 h-screen items-center justify-between py-4">
-            <h1 className="text-ctp-text text-4xl font-semibold mb-4">
+            <h1 className="text-ctp-text text-4xl font-semibold mb-4 flex items-center mx-2">
                 {
                     tasklist !== ''
                     ?
@@ -65,8 +64,8 @@ export function TaskContainer() {
                     'PLEASE SELECT A TASKLIST'
                 }
             </h1>
-            <Loading active={isLoading} />
-            <div className="w-11/12 m-2 rounded-lg h-full flex p-2 flex-col gap-2 items-center overflow-y-scroll scrollbar border-2 border-ctp-overlay0">
+            <Loading active={isLoading} type="balls" size={60}/>
+            <div className="md:w-11/12 m-2 max-h-[80%] rounded-lg h-full flex p-2 flex-col gap-2 items-center overflow-y-scroll scrollbar border-2 border-ctp-overlay0">
                 {
                     tasklist !== ''
                         ?

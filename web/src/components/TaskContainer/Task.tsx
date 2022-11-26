@@ -11,13 +11,10 @@ interface TaskComponentProps {
 export function Task({ name, createdAt, forceTaskUpdate }: TaskComponentProps) {
 
     const taskId = String(name + createdAt);
-    const [isMouseOver, setIsMouseOver] = useState(false);
 
     return (
         <div
-            className="flex flex-row w-5/6 bg-ctp-surface2 text-ctp-text items-center justify-between p-1 rounded-md px-5 border-2 border-ctp-green"
-            onMouseEnter={() => setIsMouseOver(true)}
-            onMouseLeave={() => setIsMouseOver(false)}
+            className="flex flex-row w-5/6 bg-ctp-surface2 text-ctp-text items-center justify-between p-1 rounded-md px-5 border-2 border-ctp-green overflow-hidden"
         >
             <div className="flex gap-4 items-center">
                 <Checkbox taskId={taskId} forceTaskUpdate={forceTaskUpdate} />
@@ -27,9 +24,6 @@ export function Task({ name, createdAt, forceTaskUpdate }: TaskComponentProps) {
                 </div>
             </div>
 
-            {isMouseOver && 
-                <TasklistMenu type="task" task={taskId} forceTaskUpdate={forceTaskUpdate}/>
-            }
         </div>
     )
 }

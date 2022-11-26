@@ -138,7 +138,7 @@ export function CreateTaskInput({ forceTaskUpdate }: CreateTaskInputProps) {
                 isLoading
                     ?
                     <div className="flex flex-row items-center justify-center w-11/12 h-16 px-6 rounded-md border-4 border-ctp-mauve ring-ctp-sky ring-offset-ctp-lavender">
-                        <Loading active={isLoading} />
+                        <Loading active={isLoading} type="cylon"/>
                     </div>
                     :
                     (
