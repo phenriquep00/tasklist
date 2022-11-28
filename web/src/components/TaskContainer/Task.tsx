@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import { TasklistContext } from "../../hooks/TasklistContext";
 import { UserContext } from "../../hooks/UserContext";
 import { supabase } from "../../supabaseClient";
@@ -16,6 +16,7 @@ export function Task({ name, createdAt, forceTaskUpdate }: TaskComponentProps) {
   const { tasklist, setTasklist } = useContext(TasklistContext);
   const { user, setUser } = useContext(UserContext);
   const data = JSON.parse(user);
+  const taskInputRef = useRef<any>();
 
   //get all of the user's tasklists
   const getCurrentUserTasklists = async () => {
@@ -110,6 +111,7 @@ export function Task({ name, createdAt, forceTaskUpdate }: TaskComponentProps) {
         console.log("tasks updated");
       });
     forceTaskUpdate();
+    taskInputRef.current && taskInputRef.current.blur();
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
@@ -127,6 +129,7 @@ export function Task({ name, createdAt, forceTaskUpdate }: TaskComponentProps) {
             className="w-full bg-transparent resize-none font-semibold text-lg"
             onChange={(text) => setValue(text.target.value)}
             onKeyDown={handleKeyDown}
+            ref={taskInputRef}
             type="text"
             value={value}
             name=""
