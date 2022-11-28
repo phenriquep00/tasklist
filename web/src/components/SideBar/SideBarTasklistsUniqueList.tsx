@@ -16,12 +16,12 @@ export function SideBarTasklistsUniqueList({ name }: SideBarTasklistsUniqueListP
   };
 
   return (
-    <div
+    <button
       tabIndex={0}
       onClick={handleSideBarTasklistsUniqueListClick}
       className="w-[95%] flex flex-row justify-between items-center bg-ctp-surface1 p-2 rounded hover:ring-2 ring-offset-1 ring-ctp-flamingo"
     >
       <p className="font-medium text-base truncate">{name}</p>
-    </div>
+    </button>
   )
 }

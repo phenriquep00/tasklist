@@ -8,6 +8,7 @@ import { SideBarTasklists } from "./SideBarTasklists";
 import * as Dialog from '@radix-ui/react-dialog';
 import { NewTaskModal } from "../Modals/NewTasklistModal/NewTaskModal";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
+import { useHotkeys } from "react-hotkeys-hook";
 
 export function SideBar() {
 
@@ -15,6 +16,14 @@ export function SideBar() {
     const { user, setUser } = useContext(UserContext);
     const [isSideBarOpen, setIsSideBarOpen] = useState(height >= 700 && width >= 641 ? true : false);
     const data = JSON.parse(user);
+
+    useHotkeys('ctrl + left', () => {
+        setIsSideBarOpen(false);
+    });
+
+    useHotkeys('ctrl + right', () => {
+        setIsSideBarOpen(true);
+    });
 
     const closeSideBar = () => {
         setIsSideBarOpen(false);
