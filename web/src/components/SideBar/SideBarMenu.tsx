@@ -48,7 +48,7 @@ export function SideBarMenu({ closeSideBar }: SideBarMenuProps) {
         <SignOut size={20} color="#cdd6f4" />
       </button>
       <button
-        title="colapse sidebar"
+        title="colapse sidebar [ctrl + arrow left]"
         className="rounded-full hover:bg-ctp-surface2 p-1 mr-2"
         onClick={handleCollapseSideBarButtonClick}
       >

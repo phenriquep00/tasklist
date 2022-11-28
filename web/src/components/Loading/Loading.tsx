@@ -17,10 +17,10 @@ interface LoadingProps {
 
 export function Loading({ active, type, size }: LoadingProps) {
   return active && type === undefined && size === undefined ? (
-    <ReactLoading type={"spin"} color={"#ffffff"} height={40} width={40} />
+    <ReactLoading type={"spin"} color={"#939ab7"} height={40} width={40} />
   ) : active && type && size === undefined ? (
-    <ReactLoading type={type} color={"#ffffff"} height={40} width={40} />
+    <ReactLoading type={type} color={"#939ab7"} height={40} width={40} />
   ) : active && type && size ? (
-    <ReactLoading type={type} color={"#ffffff"} height={size} width={size} />
+    <ReactLoading type={type} color={"#939ab7"} height={size} width={size} />
   ) : null;
 }

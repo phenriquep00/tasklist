@@ -4,6 +4,7 @@ import * as Dialog from "@radix-ui/react-dialog";
 import { DeleteModal } from "../Modals/DeleteModal/DeleteModal";
 import { DeleteModalButton } from "../Modals/DeleteModal/DeleteModalbutton";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
+import { TaskContainerHeaderSearchBar } from "./TaskContainerHeaderSearchBar";
 
 export function TaskContainerHeader() {
   const { tasklist, setTasklist } = useContext(TasklistContext);
@@ -17,7 +18,7 @@ export function TaskContainerHeader() {
 
       {tasklist !== "" ? (
         <div className="flex flex-row flex-1 items-center gap-2 truncate">
-          <div className="bg-ctp-surface2 flex flex-1 p-2 rounded hover:cursor-not-allowed truncate">find a task [comming soon]</div>
+          <TaskContainerHeaderSearchBar />
           <Dialog.Root>
             <DeleteModal />
             <DeleteModalButton />
