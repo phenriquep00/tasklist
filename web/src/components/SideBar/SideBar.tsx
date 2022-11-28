@@ -7,11 +7,13 @@ import { SideBarProfileCard } from "./SideBarProfileCard"
 import { SideBarTasklists } from "./SideBarTasklists";
 import * as Dialog from '@radix-ui/react-dialog';
 import { NewTaskModal } from "../Modals/NewTasklistModal/NewTaskModal";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 export function SideBar() {
 
+    const {height, width} = useWindowDimensions();
     const { user, setUser } = useContext(UserContext);
-    const [isSideBarOpen, setIsSideBarOpen] = useState(true);
+    const [isSideBarOpen, setIsSideBarOpen] = useState(height >= 700 && width >= 641 ? true : false);
     const data = JSON.parse(user);
 
     const closeSideBar = () => {

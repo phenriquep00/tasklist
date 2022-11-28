@@ -2,6 +2,7 @@ import { useContext, useEffect, useRef, useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { TasklistContext } from '../../hooks/TasklistContext';
 import { UserContext } from '../../hooks/UserContext';
+import useWindowDimensions from '../../hooks/useWindowDimensions';
 import { supabase } from '../../supabaseClient';
 import { Loading } from '../Loading/Loading';
 
@@ -13,6 +14,7 @@ export function CreateTaskInput({ forceTaskUpdate }: CreateTaskInputProps) {
 
     const { tasklist, setTasklist } = useContext(TasklistContext);
     const { user, setUser } = useContext(UserContext);
+    const {height, width} = useWindowDimensions();
     const data = JSON.parse(user);
 
     const [value, setValue] = useState('');
@@ -137,6 +139,8 @@ export function CreateTaskInput({ forceTaskUpdate }: CreateTaskInputProps) {
         !isLoading && reference.current && reference.current.focus();
     }, [isLoading])
 
+    const inputPlaceholder = height >= 700 && width >= 641 ? "Create a task [shift + space]" : "Create a task"
+
     return (
         <>
             {
@@ -157,7 +161,7 @@ export function CreateTaskInput({ forceTaskUpdate }: CreateTaskInputProps) {
                                 type="text"
                                 name=""
                                 id=""
-                                placeholder="Create a task [shift + space]"
+                                placeholder={inputPlaceholder}
                             />
                             :
                             <div className="flex flex-row items-center justify-center w-11/12 h-16 px-6 rounded-md border-4 border-ctp-mauve text-lg font-bold ring-ctp-sky ring-offset-ctp-lavender text-ctp-text">

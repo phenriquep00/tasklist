@@ -124,7 +124,7 @@ export function Checkbox({ taskId, forceTaskUpdate }: CheckboxProps) {
                     setIsChecked(false);
                 }
             }}
-            className='flex items-center justify-center bg-ctp-surface0 w-10 h-10 rounded-full hover:bg-ctp-surface1 hover:ring-2 ring-offset-1 ring-ctp-sky'
+            className='flex items-center justify-center bg-ctp-surface0 w-8 h-8 rounded-full hover:bg-ctp-surface1 hover:ring-2 ring-offset-1 ring-ctp-sky'
         >
             <Checkbox_.Indicator>
                 {
@@ -132,7 +132,7 @@ export function Checkbox({ taskId, forceTaskUpdate }: CheckboxProps) {
                         ?
                         <Loading active={isLoading} />
                         :
-                        <Check size={30} color="#fff" weight='bold' />
+                        <Check size={24} color="#fff" weight='bold' />
                 }
             </Checkbox_.Indicator>
         </Checkbox_.Root >
