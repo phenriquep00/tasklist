@@ -14,11 +14,11 @@ export function Task({ name, createdAt, forceTaskUpdate }: TaskComponentProps) {
 
     return (
         <div
-            className="flex flex-row w-5/6 bg-ctp-surface2 text-ctp-text items-center justify-between p-1 rounded-md px-5 border-2 border-ctp-green overflow-hidden"
+            className="flex flex-row w-5/6 bg-ctp-surface2 text-ctp-text items-center justify-between p-1 rounded-md px-5 border-2 border-ctp-green overflow-x-clip"
         >
             <div className="flex gap-4 items-center">
                 <Checkbox taskId={taskId} forceTaskUpdate={forceTaskUpdate} />
-                <div>
+                <div className="truncate">
                     <p className="font-semibold text-lg">{name}</p>
                     <p className="font-light text-sm">{createdAt}</p>
                 </div>
