@@ -54,9 +54,9 @@ export function SideBarProfileCard({ name, email }: SideBarProfileCardProps) {
                         />
                 }
 
-                <div className="flex flex-col">
-                    <p className="md:text-lg font-medium text-ctp-text">{name}</p>
-                    <p className="md:text-sm text-[10px] font-light text-ctp-subtext0">{email}</p>
+                <div className="flex flex-col truncate">
+                    <p className="md:text-lg font-medium text-ctp-text ">{name}</p>
+                    <p className="md:text-sm text-[10px] font-light text-ctp-subtext0 ">{email}</p>
                 </div>
             </div>
         </>

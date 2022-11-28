@@ -41,7 +41,7 @@ export function SideBar() {
                     <button
                         onClick={() => { setIsSideBarOpen(true) }}
                         title="expand sidebar"
-                        className="absolute flex items-center justify-center w-8 h-8 p-1 top-4 left-4 rounded-full hover:ring-2 ring-offset-1 ring-ctp-lavender hover:bg-ctp-crust"
+                        className="absolute z-10 flex items-center justify-center w-8 h-8 p-1 top-50 left-2 rounded-full hover:ring-2 ring-offset-1 ring-ctp-lavender hover:bg-ctp-crust"
                     >
                         <ArrowFatLineRight size={28} color={"#a6e3a1"} weight="duotone" />
                     </button>
