@@ -3,47 +3,57 @@ import { useContext, useState } from "react";
 import { UserContext } from "../../hooks/UserContext";
 import { SettingsModal } from "../Modals/SettingsModal/SettingsModal";
 import { SettingsModalButton } from "../Modals/SettingsModal/SettingsModalButton";
-import * as Dialog from '@radix-ui/react-dialog';
+import * as Dialog from "@radix-ui/react-dialog";
+import GitHubButton from "react-github-btn";
 
 interface SideBarMenuProps {
-    closeSideBar: () => void;
+  closeSideBar: () => void;
 }
 
 export function SideBarMenu({ closeSideBar }: SideBarMenuProps) {
+  const { user, setUser } = useContext(UserContext);
 
-    const { user, setUser } = useContext(UserContext);
+  const handleSignOutButtonClick = () => {
+    setUser("");
+  };
 
-    const handleSignOutButtonClick = () => {
-        setUser('');
-    };
+  const handleCollapseSideBarButtonClick = () => {
+    closeSideBar();
+  };
 
-    const handleCollapseSideBarButtonClick = () => {
-        closeSideBar();
-    };
+  return (
+    <div className="flex flex-row items-end justify-end w-11/12 border-2 border-ctp-overlay0 gap-2 rounded">
+      {/* <!-- Place this tag where you want the button to render. --> */}
+      <div className="flex mb-[-2px]">
+        <GitHubButton
+        href="https://github.com/phenriquep00/tasklist"
+        data-color-scheme="no-preference: light; light: light; dark: dark;"
+        data-show-count="true"
+        aria-label="Star phenriquep00/tasklist on GitHub"
+      >
+        Star
+      </GitHubButton>
+      </div>
+      
+      <Dialog.Root>
+        <SettingsModalButton />
+        <SettingsModal />
+      </Dialog.Root>
 
-
-    return (
-        <div className="flex flex-row items-end justify-end w-11/12 border-2 border-ctp-overlay0 gap-2 rounded">
-
-            <Dialog.Root>
-                <SettingsModalButton />
-                <SettingsModal />
-            </Dialog.Root>
-
-            <button
-                title="sign out"
-                className="rounded-full hover:bg-ctp-surface2 p-1"
-                onClick={handleSignOutButtonClick}
-            >
-                <SignOut size={20} color="#cdd6f4" />
-            </button>
-            <button
-                title="colapse sidebar"
-                className="rounded-full hover:bg-ctp-surface2 p-1 mr-2"
-                onClick={handleCollapseSideBarButtonClick}
-            >
-                <ArrowFatLineLeft size={20} color="#cdd6f4" />
-            </button>
-        </div>
-    )
+      <button
+        title="sign out"
+        className="rounded-full hover:bg-ctp-surface2 p-1"
+        onClick={handleSignOutButtonClick}
+      >
+        <SignOut size={20} color="#cdd6f4" />
+      </button>
+      <button
+        title="colapse sidebar"
+        className="rounded-full hover:bg-ctp-surface2 p-1 mr-2"
+        onClick={handleCollapseSideBarButtonClick}
+      >
+        <ArrowFatLineLeft size={20} color="#cdd6f4" />
+      </button>
+    </div>
+  );
 }
