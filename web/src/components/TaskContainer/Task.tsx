@@ -136,7 +136,7 @@ export function Task({ name, createdAt, forceTaskUpdate }: TaskComponentProps) {
             name=""
             id=""
           />
-          <p className="font-light text-sm">{formatDate(new Date(createdAt))}</p>
+          <p className="font-light text-sm">{formatDate(new Date(createdAt), "pt-BR")}</p>
         </div>
       </div>
     </div>
