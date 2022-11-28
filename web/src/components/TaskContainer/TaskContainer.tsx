@@ -6,6 +6,7 @@ import { supabase } from "../../supabaseClient";
 import { Loading } from "../Loading/Loading";
 import { CreateTaskInput } from "./CreateTaskInput";
 import { Task } from "./Task";
+import { TaskContainerHeader } from "./TaskContainerHeader";
 
 interface TaskProps {
     name: string;
@@ -55,15 +56,7 @@ export function TaskContainer() {
 
     return (
         <main className="flex flex-col w-3/4 h-screen items-center justify-between py-4">
-            <h1 className="text-ctp-text text-4xl font-semibold mb-4 flex items-center mx-2">
-                {
-                    tasklist !== ''
-                    ?
-                    tasklist
-                    :
-                    'PLEASE SELECT A TASKLIST'
-                }
-            </h1>
+            <TaskContainerHeader />
             <Loading active={isLoading} type="balls" size={60}/>
             <div className="md:w-11/12 m-2 max-h-[80%] rounded-lg h-full flex p-2 flex-col gap-2 items-center overflow-y-scroll scrollbar border-2 border-ctp-overlay0">
                 {
