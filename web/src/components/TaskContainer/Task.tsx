@@ -2,6 +2,7 @@ import { useContext, useRef, useState } from "react";
 import { TasklistContext } from "../../hooks/TasklistContext";
 import { UserContext } from "../../hooks/UserContext";
 import { supabase } from "../../supabaseClient";
+import { formatDate } from "../../utils/formatDate";
 import { Checkbox } from "./Checkbox";
 
 interface TaskComponentProps {
@@ -135,7 +136,7 @@ export function Task({ name, createdAt, forceTaskUpdate }: TaskComponentProps) {
             name=""
             id=""
           />
-          <p className="font-light text-sm">{createdAt}</p>
+          <p className="font-light text-sm">{formatDate(new Date(createdAt))}</p>
         </div>
       </div>
     </div>
