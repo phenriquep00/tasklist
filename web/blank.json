@@ -1,0 +1,74 @@
+[
+    {
+      "name": "My day",
+      "tasks": [
+        {
+          "name": "first task",
+          "createdAt": "2022-11-25T02:38:23.570Z",
+          "completed": false
+        },
+        null,
+        {
+          "name": "shave",
+          "createdAt": "2022-11-26T02:04:32.513Z",
+          "completed": false
+        }
+      ]
+    },
+    {
+      "name": "things to optimize ",
+      "tasks": [
+        null,
+        {
+          "name": "close the create tasklist modl when a tasklist is created",
+          "createdAt": "2022-11-25T13:30:53.138Z",
+          "completed": false
+        },
+        {
+          "name": " add more shortcuts",
+          "createdAt": "2022-11-25T13:31:00.338Z",
+          "completed": false
+        },
+        {
+          "name": " edit tasks with double click",
+          "createdAt": "2022-11-25T13:31:14.429Z",
+          "completed": false
+        },
+        null,
+        {
+          "name": "move the edit/delete menu to the side of tasklist title",
+          "createdAt": "2022-11-28T01:16:05.314Z",
+          "completed": false
+        },
+        {
+          "name": " add a serach bar ",
+          "createdAt": "2022-11-28T01:16:22.646Z",
+          "completed": false
+        },
+        null,
+        null,
+        {
+          "name": "remove the shift + space hint from the placeholder if the app is been used from a mobile device",
+          "createdAt": "2022-11-28T01:18:24.694Z",
+          "completed": false
+        },
+        {
+          "name": " create a function to check if the app is beeing used from a mobile device",
+          "createdAt": "2022-11-28T01:18:41.460Z",
+          "completed": false
+        },
+        {
+          "name": " set the side abr to be closed by default if the app window is too small (aka mobile device)",
+          "createdAt": "2022-11-28T01:19:14.033Z",
+          "completed": false
+        },
+        null,
+        {
+          "name": "fix email, name and tasklist text overflow",
+          "createdAt": "2022-11-28T01:51:54.888Z",
+          "completed": false
+        }
+      ]
+    }
+    
+  ]

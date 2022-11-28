@@ -72,7 +72,7 @@ export function TaskContainer() {
                         tasks.length > 0 && tasks !== undefined
                             ?
                             tasks.map((task: TaskProps, index: any) => (
-
+                                
                                 task !== null ? <Task key={index} name={task.name} createdAt={task.createdAt} forceTaskUpdate={getTasks} /> : null
 
                             ))

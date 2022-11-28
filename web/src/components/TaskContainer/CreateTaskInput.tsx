@@ -1,4 +1,4 @@
-import { useContext, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { useHotkeys } from 'react-hotkeys-hook';
 import { TasklistContext } from '../../hooks/TasklistContext';
 import { UserContext } from '../../hooks/UserContext';
@@ -124,6 +124,7 @@ export function CreateTaskInput({ forceTaskUpdate }: CreateTaskInputProps) {
             })
         setIsloading(false);
         forceTaskUpdate();
+        
     };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
@@ -131,6 +132,10 @@ export function CreateTaskInput({ forceTaskUpdate }: CreateTaskInputProps) {
             handleCreateNewTask();
         }
     };
+
+    useEffect(() => {
+        !isLoading && reference.current && reference.current.focus();
+    }, [isLoading])
 
     return (
         <>
