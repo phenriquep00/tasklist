@@ -14,6 +14,7 @@ export function TaskContainerHeader() {
   const [title, setTitle] = useState<string>(tasklist);
   const { user, setUser } = useContext(UserContext);
   const [isLoading, setIsloading] = useState(false);
+  const [forceUpdateTitle, setForceUpdateTitle] = useState(false);
   const data = JSON.parse(user);
   const tasklistRef = useRef<any>();
 
@@ -57,7 +58,6 @@ export function TaskContainerHeader() {
   };
 
   const handleEditTaskistName = async () => {
-    //TODO: find the tasklist with the same name and change it
     setIsloading(true);
 
     var createValidator = true;
@@ -91,14 +91,17 @@ export function TaskContainerHeader() {
     setTitle(tasklist);
   }, [tasklist]);
 
-  /* useEffect(() => {setTasklist(title)}, [title]) */
-
+  
   const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
     if (e.key === "Enter") {
       handleEditTaskistName();
       tasklistRef.current.blur();
     }
   };
+
+  const handleBlur = () => {
+    setTitle(tasklist)
+  }
 
   return (
     <div
@@ -112,6 +115,7 @@ export function TaskContainerHeader() {
             className="bg-transparent text-center w-full text-ctp-text"
             onChange={(text) => setTitle(text.target.value)}
             onKeyDown={handleKeyDown}
+            onBlur={handleBlur}
             value={title}
             type="text"
             name=""

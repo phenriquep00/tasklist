@@ -27,7 +27,7 @@ export function TaskContainer({ isSideBarOpen }: TaskContainerProps) {
   const data = JSON.parse(user);
 
   const { height, width } = useWindowDimensions();
-  const isMobile = height >= 700 && width >= 641 ? false : true;
+  const isMobile = height >= 600 && width >= 641 ? false : true;
 
   const getCurrentTasklistData = async () => {
     let totalTasklists = [];
