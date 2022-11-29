@@ -8,7 +8,7 @@ function App() {
   const { user, setUser } = useContext(UserContext);
 
   return (
-    <div>
+    <div className="overflow-hidden">
       {
         user !== undefined && user !== ''
           ?

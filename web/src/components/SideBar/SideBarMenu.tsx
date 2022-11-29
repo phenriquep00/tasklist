@@ -22,7 +22,7 @@ export function SideBarMenu({ closeSideBar }: SideBarMenuProps) {
   };
 
   return (
-    <div className="flex flex-row items-end justify-end w-11/12 border-2 border-ctp-overlay0 gap-2 rounded">
+    <div className="flex flex-row items-end justify-end w-11/12 border-2 border-ctp-overlay0 gap-2 rounded overflow-hidden">
       {/* <!-- Place this tag where you want the button to render. --> */}
       <div className="flex mb-[-2px]">
         <GitHubButton

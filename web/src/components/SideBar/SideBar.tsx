@@ -35,7 +35,7 @@ export function SideBar() {
                 isSideBarOpen
                     ?
                     (
-                        <div className="md:min-w-[300px] flex flex-col gap-2 bg-ctp-mantle w-3/4 md:w-1/4 h-screen items-center justify-center rounded-r-md border-r-2 border-ctp-overlay1 transition-transform duration-300">
+                        <div className="md:min-w-[300px] flex flex-col gap-2 bg-ctp-mantle w-auto md:w-1/4 h-screen items-center justify-center rounded-r-md border-r-2 border-ctp-overlay1 transition-transform duration-300">
                             <SideBarMenu closeSideBar={closeSideBar} />
                             <SideBarProfileCard name={data.name} email={data.email} />
                             <SideBarTasklists email={data.email} />
