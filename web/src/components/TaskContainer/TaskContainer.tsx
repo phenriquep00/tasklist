@@ -55,10 +55,10 @@ export function TaskContainer() {
     }, [tasklist]);
 
     return (
-        <main className="flex flex-col md:w-3/4 w-5/6 md:max-w-[60%] h-screen items-center justify-between py-4">
+        <main className="flex flex-col w-3/4 h-screen items-center justify-between py-4">
             <TaskContainerHeader />
             <Loading active={isLoading} type="balls" size={60}/>
-            <div className="md:w-11/12 w-full m-2 md:max-h-[75%] rounded-lg h-full flex p-2 flex-col gap-2 items-center overflow-y-scroll scrollbar border-2 border-ctp-overlay0">
+            <div className="md:w-11/12 m-2 max-h-[80%] rounded-lg h-full flex p-2 flex-col gap-2 items-center overflow-y-scroll scrollbar border-2 border-ctp-overlay0">
                 {
                     tasklist !== ''
                         ?

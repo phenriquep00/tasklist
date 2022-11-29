@@ -30,7 +30,7 @@ export function TaskContainerHeader() {
         height >= 700 && width >= 641 ? "flex-row" : "flex-col"
       } items-center justify-around gap-4`}
     >
-      <h1 className="flex max-w-xl md:w-[30%] text-4xl font-bold truncate border-2 p-2 rounded-md border-ctp-overlay0">
+      <h1 className="flex max-w-xl text-4xl font-bold truncate border-2 p-2 rounded-md border-ctp-overlay0">
         {tasklist !== "" ? (
           <input className="bg-transparent text-center w-full text-ctp-text" onChange={(text) => setTitle(text.target.value)} value={title} type="text" name="" id="" />
         ) : (
@@ -39,7 +39,7 @@ export function TaskContainerHeader() {
       </h1>
 
       {tasklist !== "" ? (
-        <div className="flex flex-row md:flex-1 w-full items-center gap-2 truncate">
+        <div className="flex flex-row max-w items-center gap-2 truncate">
           <TaskContainerHeaderSearchBar />
 
           <Dialog.Root>
