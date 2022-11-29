@@ -120,9 +120,12 @@ export function Task({ name, createdAt, forceTaskUpdate }: TaskComponentProps) {
   };
 
   return (
-    <div className="flex flex-row w-5/6 bg-ctp-surface2 text-ctp-text items-center justify-between p-1 rounded-md px-5 border-2 border-ctp-green overflow-x-clip">
-      <div className="flex gap-4 items-center w-full">
-        <Checkbox taskId={taskId} forceTaskUpdate={forceTaskUpdate} />
+    <div className="flex flex-row w-5/6 bg-ctp-surface2 text-ctp-text items-center justify-between p-1 rounded-md md:px-5 px-3 border-2 border-ctp-green overflow-x-clip">
+      <div className="flex flex-1 md:gap-4 gap-2 items-center">
+        <div className="h-full w-8">
+          <Checkbox taskId={taskId} forceTaskUpdate={forceTaskUpdate} />
+        </div>
+        
         <div className="truncate w-full">
           <input
             className="w-full bg-transparent resize-none font-semibold text-lg"

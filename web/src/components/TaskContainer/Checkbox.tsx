@@ -119,7 +119,7 @@ export function Checkbox({ taskId, forceTaskUpdate }: CheckboxProps) {
           setIsChecked(false);
         }
       }}
-      className="flex items-center justify-center bg-ctp-surface0 w-8 h-8 rounded-full hover:bg-ctp-surface1 hover:ring-2 ring-offset-1 ring-ctp-sky"
+      className="flex items-center mb-1 w-8 h-8 justify-center bg-ctp-surface0 rounded-full hover:bg-ctp-surface1 hover:ring-2 ring-offset-1 ring-ctp-sky"
     >
       <Checkbox_.Indicator>
         {isLoading ? (

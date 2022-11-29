@@ -77,7 +77,7 @@ export function TaskContainerHeader() {
       await supabase
         .from("user")
         .update({ tasklists: newUserTotalTasklists })
-        .eq("email", data.email)
+        .eq("email", data.email);
 
       setTasklist(title);
     } else {
@@ -91,7 +91,6 @@ export function TaskContainerHeader() {
     setTitle(tasklist);
   }, [tasklist]);
 
-  
   const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
     if (e.key === "Enter") {
       handleEditTaskistName();
@@ -100,8 +99,8 @@ export function TaskContainerHeader() {
   };
 
   const handleBlur = () => {
-    setTitle(tasklist)
-  }
+    setTitle(tasklist);
+  };
 
   return (
     <div
