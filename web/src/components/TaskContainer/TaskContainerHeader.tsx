@@ -30,7 +30,7 @@ export function TaskContainerHeader() {
         height >= 700 && width >= 641 ? "flex-row" : "flex-col"
       } items-center justify-around gap-4`}
     >
-      <h1 className="flex text-4xl font-bold truncate border-2 p-2 rounded-md border-ctp-overlay0">
+      <h1 className="flex md:text-4xl text-2xl font-bold truncate border-2 p-2 rounded-md border-ctp-overlay0">
         {tasklist !== "" ? (
           <input className="bg-transparent text-center w-full text-ctp-text" onChange={(text) => setTitle(text.target.value)} value={title} type="text" name="" id="" />
         ) : (
