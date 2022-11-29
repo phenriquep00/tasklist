@@ -12,11 +12,13 @@ export function TaskContainerHeader() {
   const [title, setTitle] = useState<string>(tasklist);
   const tasklistRef = useRef<any>();
 
-  const handleEditTaskistName= () => {
+  const handleEditTaskistName = () => {
     //TODO: find the tasklist with the same name and change it
   };
 
-  useEffect(() => {setTitle(tasklist)}, [tasklist]);
+  useEffect(() => {
+    setTitle(tasklist);
+  }, [tasklist]);
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
     if (e.key === "Enter") {
@@ -32,7 +34,14 @@ export function TaskContainerHeader() {
     >
       <h1 className="flex md:text-4xl text-2xl font-bold truncate border-2 p-2 rounded-md border-ctp-overlay0">
         {tasklist !== "" ? (
-          <input className="bg-transparent text-center w-full text-ctp-text" onChange={(text) => setTitle(text.target.value)} value={title} type="text" name="" id="" />
+          <input
+            className="bg-transparent text-center w-full text-ctp-text"
+            onChange={(text) => setTitle(text.target.value)}
+            value={title}
+            type="text"
+            name=""
+            id=""
+          />
         ) : (
           "PLEASE SELECT A TASKLIST"
         )}

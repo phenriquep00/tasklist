@@ -86,9 +86,7 @@ export function TaskContainer({ isSideBarOpen }: TaskContainerProps) {
             <p>All tasks on this list have been completed!</p>
           )
         ) : (
-          <p className="text-2xl text-ctp-sky font-bold">
-            Select a Tasklist
-          </p>
+          <p className="text-2xl text-ctp-sky font-bold">Select a Tasklist</p>
         )}
       </div>
 

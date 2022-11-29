@@ -5,15 +5,12 @@ import { UserContext } from "../../../hooks/UserContext";
 import { supabase } from "../../../supabaseClient";
 import { DeleteModalConfirmButton } from "./DeleteModalConfirmButton";
 
-
-
 export function DeleteModal() {
   const { tasklist, setTasklist } = useContext(TasklistContext);
   const { user, setUser } = useContext(UserContext);
   const data = JSON.parse(user);
 
   const [isLoading, setIsloading] = useState(false);
-
 
   const getCurrentUserTasklists = async () => {
     let matchResult = "";

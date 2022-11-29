@@ -26,15 +26,15 @@ export function SideBarMenu({ closeSideBar }: SideBarMenuProps) {
       {/* <!-- Place this tag where you want the button to render. --> */}
       <div className="flex mb-[-2px]">
         <GitHubButton
-        href="https://github.com/phenriquep00/tasklist"
-        data-color-scheme="no-preference: light; light: light; dark: dark;"
-        data-show-count="true"
-        aria-label="Star phenriquep00/tasklist on GitHub"
-      >
-        Star
-      </GitHubButton>
+          href="https://github.com/phenriquep00/tasklist"
+          data-color-scheme="no-preference: light; light: light; dark: dark;"
+          data-show-count="true"
+          aria-label="Star phenriquep00/tasklist on GitHub"
+        >
+          Star
+        </GitHubButton>
       </div>
-      
+
       <Dialog.Root>
         <SettingsModalButton />
         <SettingsModal />
