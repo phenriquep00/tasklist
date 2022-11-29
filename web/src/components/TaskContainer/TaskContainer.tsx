@@ -61,11 +61,14 @@ export function TaskContainer({ isSideBarOpen }: TaskContainerProps) {
     getTasks();
   }, [tasklist]);
 
+  // check if the side bar is open and the app is running on a mobile screen, if that's the case, it will render nothing
+  // because of sidebar visibility
+  // elsewise it will be rendered normally
   return isSideBarOpen && isMobile ? null : (
     <main className="flex flex-col w-3/4 h-screen items-center justify-between py-4">
       <TaskContainerHeader />
       <Loading active={isLoading} type="balls" size={60} />
-      <div className="md:w-11/12 m-2 max-h-[80%] rounded-lg h-full flex p-2 flex-col gap-2 items-center overflow-y-scroll scrollbar border-2 border-ctp-overlay0">
+      <div className="md:w-11/12 m-2 md:max-h-[80%] max-h-[70%] rounded-lg h-full flex p-2 flex-col gap-2 items-center overflow-y-scroll scrollbar border-2 border-ctp-overlay0">
         {tasklist !== "" ? (
           tasks.length > 0 && tasks !== undefined ? (
             tasks.map((task: TaskProps, index: any) =>
@@ -83,8 +86,8 @@ export function TaskContainer({ isSideBarOpen }: TaskContainerProps) {
             <p>All tasks on this list have been completed!</p>
           )
         ) : (
-          <p className="text-4xl text-ctp-sky font-bold">
-            Select a Tasklist and start creating tasks
+          <p className="text-2xl text-ctp-sky font-bold">
+            Select a Tasklist
           </p>
         )}
       </div>
