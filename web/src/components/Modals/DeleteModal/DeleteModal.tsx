@@ -63,8 +63,8 @@ export function DeleteModal() {
 
   return (
     <Dialog.Portal>
-      <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-80" />
-      <Dialog.Content className="flex flex-col flex-1 max-h-auto max-w-auto items-center justify-between text-ctp-text bg-ctp-crust rounded-xl fixed top-1/2 left-1/2 w-auto h-auto gap-6 p-6 translate-x-[-50%] translate-y-[-50%]">
+      <Dialog.Overlay className="fixed z-20 inset-0 bg-black bg-opacity-80" />
+      <Dialog.Content className="flex z-20 flex-col flex-1 max-h-auto max-w-auto items-center justify-between text-ctp-text bg-ctp-crust rounded-xl fixed top-1/2 left-1/2 w-auto h-auto gap-6 p-6 translate-x-[-50%] translate-y-[-50%]">
         <Dialog.Title className="text-2xl text-ctp-text font-bold">
           <p>Delete tasklist {tasklist}?</p>
         </Dialog.Title>
