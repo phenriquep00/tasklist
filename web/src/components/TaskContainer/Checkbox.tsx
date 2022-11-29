@@ -50,7 +50,7 @@ export function Checkbox({ taskId, forceTaskUpdate }: CheckboxProps) {
                 //@ts-ignore
                 totalTasklists = data[0].tasklists
                 totalTasklists.map((tsklst: any) => (
-                    tsklst.name == tasklist ? matchingTasklist = tsklst : null
+                    tsklst !== null && tsklst.name == tasklist ? matchingTasklist = tsklst : null
                 ))
             });
 
@@ -67,7 +67,7 @@ export function Checkbox({ taskId, forceTaskUpdate }: CheckboxProps) {
 
         userTotalTasklists.map((tsklst: any) => {
             // find the tasklist that has the same name as the current tasklist
-            if (tsklst.name === currentActiveTasklist.name) {
+            if (tsklst !== null && tsklst.name === currentActiveTasklist.name  ) {
                 tsklst.tasks.map((task: any, index: number) => {
                     if (task !== null) {
                         if (String(task.name + task.createdAt) == idOfTheTaskToBeCompleted) {
@@ -85,7 +85,7 @@ export function Checkbox({ taskId, forceTaskUpdate }: CheckboxProps) {
         // recreate the json
         const newTasklistsJson: any[] = [];
         userTotalTasklists.map((tsklst: any) => {
-            if (tsklst.name === currentActiveTasklist.name) {
+            if (tsklst !== null && tsklst.name === currentActiveTasklist.name) {
                 newTasklistsJson.push(ModifyedTasklistWithNewlyCreatedTask);
             } else {
                 newTasklistsJson.push(tsklst);

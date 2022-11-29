@@ -10,32 +10,35 @@ import { NewTaskModal } from "../Modals/NewTasklistModal/NewTaskModal";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import { useHotkeys } from "react-hotkeys-hook";
 
-export function SideBar() {
+interface SideBarProps {
+    isOpen: boolean;
+    setIsOpen: (arg0: boolean) => void;
+}
 
-    const {height, width} = useWindowDimensions();
+export function SideBar({isOpen, setIsOpen}: SideBarProps) {
+
     const { user, setUser } = useContext(UserContext);
-    const [isSideBarOpen, setIsSideBarOpen] = useState(height >= 700 && width >= 641 ? true : false);
     const data = JSON.parse(user);
 
     useHotkeys('ctrl + left', () => {
-        setIsSideBarOpen(false);
+        setIsOpen(false);
     });
 
     useHotkeys('ctrl + right', () => {
-        setIsSideBarOpen(true);
+        setIsOpen(true);
     });
 
     const closeSideBar = () => {
-        setIsSideBarOpen(false);
+        setIsOpen(false);
     };
 
     return (
         <>
             {
-                isSideBarOpen
+                isOpen
                     ?
                     (
-                        <div className="md:min-w-[300px] flex flex-col gap-2 bg-ctp-mantle w-3/4 md:w-1/4 h-screen items-center justify-center rounded-r-md border-r-2 border-ctp-overlay1 transition-transform duration-300">
+                        <div className="z-10 flex flex-col gap-2 bg-ctp-mantle w-3/4 md:w-1/4 h-screen items-center justify-center rounded-r-md border-r-2 border-ctp-overlay1 transition-transform duration-300">
                             <SideBarMenu closeSideBar={closeSideBar} />
                             <SideBarProfileCard name={data.name} email={data.email} />
                             <SideBarTasklists email={data.email} />
@@ -43,12 +46,11 @@ export function SideBar() {
                                 <NewTaskModal />
                                 <NewTaskModalButton />
                             </Dialog.Root>
-
                         </div>
                     )
                     :
                     <button
-                        onClick={() => { setIsSideBarOpen(true) }}
+                        onClick={() => { setIsOpen(true) }}
                         title="expand sidebar [ctrl + arrow right]"
                         className="absolute z-10 flex items-center justify-center w-8 h-8 p-1 top-50 left-2 rounded-full hover:ring-2 ring-offset-1 ring-ctp-lavender hover:bg-ctp-crust"
                     >
