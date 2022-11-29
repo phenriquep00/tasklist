@@ -5,6 +5,7 @@ import { SettingsModal } from "../Modals/SettingsModal/SettingsModal";
 import { SettingsModalButton } from "../Modals/SettingsModal/SettingsModalButton";
 import * as Dialog from "@radix-ui/react-dialog";
 import GitHubButton from "react-github-btn";
+import { TasklistContext } from "../../hooks/TasklistContext";
 
 interface SideBarMenuProps {
   closeSideBar: () => void;
@@ -12,9 +13,11 @@ interface SideBarMenuProps {
 
 export function SideBarMenu({ closeSideBar }: SideBarMenuProps) {
   const { user, setUser } = useContext(UserContext);
+  const { tasklist, setTasklist } = useContext(TasklistContext);
 
   const handleSignOutButtonClick = () => {
     setUser("");
+    setTasklist("");
   };
 
   const handleCollapseSideBarButtonClick = () => {

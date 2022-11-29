@@ -5,24 +5,76 @@ import { DeleteModal } from "../Modals/DeleteModal/DeleteModal";
 import { DeleteModalButton } from "../Modals/DeleteModal/DeleteModalbutton";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import { TaskContainerHeaderSearchBar } from "./TaskContainerHeaderSearchBar";
+import { supabase } from "../../supabaseClient";
+import { UserContext } from "../../hooks/UserContext";
 
 export function TaskContainerHeader() {
   const { tasklist, setTasklist } = useContext(TasklistContext);
   const { height, width } = useWindowDimensions();
   const [title, setTitle] = useState<string>(tasklist);
+  const { user, setUser } = useContext(UserContext);
+  const [isLoading, setIsloading] = useState(false);
+  const data = JSON.parse(user);
   const tasklistRef = useRef<any>();
 
-  const handleEditTaskistName = () => {
+  //get all of the user's tasklists
+  const getCurrentUserTasklists = async () => {
+    let matchResult = "";
+
+    await supabase
+      .from("user")
+      .select("tasklists")
+      .eq("email", data.email)
+      .then(({ data }) => {
+        //@ts-ignore
+        matchResult = data[0].tasklists;
+      });
+
+    return matchResult;
+  };
+
+  // rewrite the json adding the new task data
+  const rewriteTasklists = async (tasklistName: string, newTasklistName: string) => {
+    const userTotalTasklists: any = await getCurrentUserTasklists();
+
+    userTotalTasklists.map((tsklst: any, index:number) => (
+      tsklst !== null && tsklst.name === tasklistName && (tsklst.name = newTasklistName)
+    ));
+
+    // recreate the json
+    const newTasklistsJson: any[] = [];
+    userTotalTasklists.map((tsklst: any) => {
+      newTasklistsJson.push(tsklst);
+    });
+
+    return newTasklistsJson;
+  };
+
+  const handleEditTaskistName = async () => {
     //TODO: find the tasklist with the same name and change it
+    setIsloading(true);
+    const newUserTotalTasklists: any = await rewriteTasklists(tasklist, title);
+    // update db
+    await supabase
+    .from('user')
+    .update({ tasklists: newUserTotalTasklists })
+    .eq("email", data.email)
+    .then(() => console.log('updated'))
+
+    setIsloading(false);
+    setTasklist(title);
   };
 
   useEffect(() => {
     setTitle(tasklist);
   }, [tasklist]);
 
+  /* useEffect(() => {setTasklist(title)}, [title]) */
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
     if (e.key === "Enter") {
       handleEditTaskistName();
+      tasklistRef.current.blur();
     }
   };
 
@@ -37,9 +89,11 @@ export function TaskContainerHeader() {
           <input
             className="bg-transparent text-center w-full text-ctp-text"
             onChange={(text) => setTitle(text.target.value)}
+            onKeyDown={handleKeyDown}
             value={title}
             type="text"
             name=""
+            ref={tasklistRef}
             id=""
           />
         ) : (
