@@ -34,12 +34,18 @@ export function TaskContainerHeader() {
   };
 
   // rewrite the json adding the new task data
-  const rewriteTasklists = async (tasklistName: string, newTasklistName: string) => {
+  const rewriteTasklists = async (
+    tasklistName: string,
+    newTasklistName: string
+  ) => {
     const userTotalTasklists: any = await getCurrentUserTasklists();
 
-    userTotalTasklists.map((tsklst: any, index:number) => (
-      tsklst !== null && tsklst.name === tasklistName && (tsklst.name = newTasklistName)
-    ));
+    userTotalTasklists.map(
+      (tsklst: any, index: number) =>
+        tsklst !== null &&
+        tsklst.name === tasklistName &&
+        (tsklst.name = newTasklistName)
+    );
 
     // recreate the json
     const newTasklistsJson: any[] = [];
@@ -53,16 +59,33 @@ export function TaskContainerHeader() {
   const handleEditTaskistName = async () => {
     //TODO: find the tasklist with the same name and change it
     setIsloading(true);
-    const newUserTotalTasklists: any = await rewriteTasklists(tasklist, title);
-    // update db
-    await supabase
-    .from('user')
-    .update({ tasklists: newUserTotalTasklists })
-    .eq("email", data.email)
-    .then(() => console.log('updated'))
+
+    var createValidator = true;
+    const totalTasklists: any = await getCurrentUserTasklists();
+    totalTasklists.map(async (tasklist: any) => {
+      if (tasklist !== null && tasklist.name == title) {
+        alert("You already have a tasklist with this name");
+        createValidator = false;
+      }
+    });
+    if (createValidator) {
+      const newUserTotalTasklists: any = await rewriteTasklists(
+        tasklist,
+        title
+      );
+      // update db
+      await supabase
+        .from("user")
+        .update({ tasklists: newUserTotalTasklists })
+        .eq("email", data.email)
+        .then(() => console.log("updated"));
+
+      setTasklist(title);
+    } else {
+      setTitle(tasklist);
+    }
 
     setIsloading(false);
-    setTasklist(title);
   };
 
   useEffect(() => {

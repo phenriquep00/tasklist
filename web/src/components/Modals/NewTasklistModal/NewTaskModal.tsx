@@ -63,7 +63,7 @@ export function NewTaskModal() {
 
     const totalTasklists: any = await getCurrentUserTasklists();
     totalTasklists.map(async (tasklist: any) => {
-      if (tasklist.name == dataFromForm.name) {
+      if (tasklist !== null && tasklist.name == dataFromForm.name) {
         alert("You already have a tasklist with this name");
         createValidator = false;
       }
