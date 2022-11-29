@@ -71,7 +71,6 @@ export function Checkbox({ taskId, forceTaskUpdate }: CheckboxProps) {
             if (
               String(task.name + task.createdAt) == idOfTheTaskToBeCompleted
             ) {
-              console.log(tsklst.tasks[index]);
               delete tsklst.tasks[index];
             }
           }
@@ -99,15 +98,12 @@ export function Checkbox({ taskId, forceTaskUpdate }: CheckboxProps) {
     setIsloading(true);
     // new data to return
     const newUserTotalTasklists: any = await rewriteTasklists(taskId);
-    console.log(newUserTotalTasklists);
     //post new task
     await supabase
       .from("user")
       .update({ tasklists: newUserTotalTasklists })
-      .eq("email", data.email)
-      .then(() => {
-        console.log("tasks updated");
-      });
+      .eq("email", data.email);
+
     setIsloading(false);
     forceTaskUpdate();
   };

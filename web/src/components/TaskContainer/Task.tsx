@@ -108,9 +108,7 @@ export function Task({ name, createdAt, forceTaskUpdate }: TaskComponentProps) {
       .from("user")
       .update({ tasklists: newUserTotalTasklists })
       .eq("email", data.email)
-      .then(() => {
-        console.log("tasks updated");
-      });
+
     forceTaskUpdate();
     taskInputRef.current && taskInputRef.current.blur();
   };

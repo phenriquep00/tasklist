@@ -112,9 +112,7 @@ export function CreateTaskInput({ forceTaskUpdate }: CreateTaskInputProps) {
       .from("user")
       .update({ tasklists: newUserTotalTasklists })
       .eq("email", data.email)
-      .then(() => {
-        console.log("tasks updated");
-      });
+
     setIsloading(false);
     forceTaskUpdate();
   };

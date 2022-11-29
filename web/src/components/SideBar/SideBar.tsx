@@ -17,6 +17,7 @@ interface SideBarProps {
 
 export function SideBar({ isOpen, setIsOpen }: SideBarProps) {
   const { user, setUser } = useContext(UserContext);
+  const [open, setOpen] = useState(false);
   const data = JSON.parse(user);
 
   useHotkeys("ctrl + left", () => {
@@ -38,8 +39,8 @@ export function SideBar({ isOpen, setIsOpen }: SideBarProps) {
           <SideBarMenu closeSideBar={closeSideBar} />
           <SideBarProfileCard name={data.name} email={data.email} />
           <SideBarTasklists email={data.email} isSideBarOpen={setIsOpen} />
-          <Dialog.Root>
-            <NewTaskModal />
+          <Dialog.Root open={open} onOpenChange={setOpen}>
+            <NewTaskModal isOpen={setOpen}/>
             <NewTaskModalButton />
           </Dialog.Root>
         </div>

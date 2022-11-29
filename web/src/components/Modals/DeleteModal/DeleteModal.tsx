@@ -55,7 +55,6 @@ export function DeleteModal() {
       .update({ tasklists: newUserTotalTasklists })
       .eq("email", data.email)
       .then(() => {
-        console.log("tasks updated");
       });
     setTasklist("");
     setIsloading(false);

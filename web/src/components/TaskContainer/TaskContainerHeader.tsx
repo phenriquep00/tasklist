@@ -78,7 +78,6 @@ export function TaskContainerHeader() {
         .from("user")
         .update({ tasklists: newUserTotalTasklists })
         .eq("email", data.email)
-        .then(() => console.log("updated"));
 
       setTasklist(title);
     } else {

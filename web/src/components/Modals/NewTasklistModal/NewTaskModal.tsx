@@ -1,11 +1,15 @@
 import * as Dialog from "@radix-ui/react-dialog";
-import { FormEvent, useContext, useState } from "react";
+import { FormEvent, useContext, useRef, useState } from "react";
 import { TasklistContext } from "../../../hooks/TasklistContext";
 import { UserContext } from "../../../hooks/UserContext";
 import { supabase } from "../../../supabaseClient";
 import { Loading } from "../../Loading/Loading";
 
-export function NewTaskModal() {
+interface NewTaskModal {
+  isOpen: (arg0: boolean) => void;
+}
+
+export function NewTaskModal({isOpen}: NewTaskModal) {
   const [isLoading, setIsloading] = useState(false);
   const { user, setUser } = useContext(UserContext);
   const { tasklist, setTasklist } = useContext(TasklistContext);
@@ -78,18 +82,17 @@ export function NewTaskModal() {
         .update({ tasklists: newUserTotalTasklists })
         .eq("email", data.email)
         .then(() => {
-          console.log("tasks updated");
-          alert("New tsaklist created");
           setTasklist(dataFromForm.name);
         });
     }
 
     setIsloading(false);
+    isOpen(false);
   };
 
   return (
     <Dialog.Portal>
-      <Dialog.Overlay className="fixed inset-0 bg-black bg-opacity-80 z-20" />
+      <Dialog.Overlay  className="fixed inset-0 bg-black bg-opacity-80 z-20" />
       <Dialog.Content className="flex z-20 flex-col items-center justify-between text-ctp-text bg-ctp-crust rounded-xl fixed top-1/2 left-1/2 w-auto h-auto gap-6 p-4 translate-x-[-50%] translate-y-[-50%]">
         <Dialog.Title className="text-xl font-bold">
           Create new task
