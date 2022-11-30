@@ -1,10 +1,5 @@
 import axios from "axios";
-import {
-  Key,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
+import { Key, useContext, useEffect, useRef, useState } from "react";
 import { useHotkeys } from "react-hotkeys-hook";
 import { TasklistContext } from "../../hooks/TasklistContext";
 import { supabase } from "../../supabaseClient";
@@ -33,14 +28,13 @@ export function SideBarTasklists({
   const [tasklists, setTasklists] = useState<any>([]);
   const { tasklist, setTasklist } = useContext(TasklistContext);
   const [isLoading, setIsLoading] = useState(false);
-  
 
   useHotkeys("ctrl + up", () => {
-    swapTasklist("up");
+    console.log("up");
   });
 
   useHotkeys("ctrl + down", () => {
-    swapTasklist("down");
+    console.log("down");
   });
 
   const getUserTasklists = async () => {
@@ -53,6 +47,7 @@ export function SideBarTasklists({
       .then(({ data }) => {
         //@ts-ignore
         let tasklistsFromDb = data[0].tasklists;
+        tasklistsFromDb = tasklistsFromDb.filter((n: any) => n);
         setTasklists(tasklistsFromDb);
       });
     setIsLoading(false);
@@ -73,19 +68,11 @@ export function SideBarTasklists({
   };
 
   const getCurrentTasklistIndex = (currentTasklistName: string) => {
-    const pos = tasklists.map((e: { name: string; }) => e.name).indexOf(currentTasklistName);
+    const pos = tasklists
+      .map((e: { name: string }) => e.name)
+      .indexOf(currentTasklistName);
 
     return pos;
-  };
-
-  const swapTasklist = (direction: string) => {
-    const currentTasklistIndex = getCurrentTasklistIndex(tasklist)
-
-    if (direction === "up") {
-      console.log("up");
-    } else if (direction === "down") {
-      console.log("down");
-    }
   };
 
   useEffect(() => {
