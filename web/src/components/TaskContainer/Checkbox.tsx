@@ -9,9 +9,10 @@ import { Loading } from "../Loading/Loading";
 interface CheckboxProps {
   taskId: string;
   forceTaskUpdate: () => void;
+  forceTasklistUpdate: (arg0: boolean) => void;
 }
 
-export function Checkbox({ taskId, forceTaskUpdate }: CheckboxProps) {
+export function Checkbox({ taskId, forceTaskUpdate, forceTasklistUpdate }: CheckboxProps) {
   const { tasklist, setTasklist } = useContext(TasklistContext);
   const { user, setUser } = useContext(UserContext);
   const data = JSON.parse(user);
@@ -106,6 +107,7 @@ export function Checkbox({ taskId, forceTaskUpdate }: CheckboxProps) {
 
     setIsloading(false);
     forceTaskUpdate();
+    forceTasklistUpdate(true);
   };
 
   return (

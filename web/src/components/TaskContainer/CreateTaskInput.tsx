@@ -8,9 +8,10 @@ import { Loading } from "../Loading/Loading";
 
 interface CreateTaskInputProps {
   forceTaskUpdate: () => void;
+  forceTasklistUpdate: (arg0: boolean) => void;
 }
 
-export function CreateTaskInput({ forceTaskUpdate }: CreateTaskInputProps) {
+export function CreateTaskInput({ forceTaskUpdate, forceTasklistUpdate }: CreateTaskInputProps) {
   const { tasklist, setTasklist } = useContext(TasklistContext);
   const { user, setUser } = useContext(UserContext);
   const { height, width } = useWindowDimensions();
@@ -115,6 +116,7 @@ export function CreateTaskInput({ forceTaskUpdate }: CreateTaskInputProps) {
 
     setIsloading(false);
     forceTaskUpdate();
+    forceTasklistUpdate(true);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {

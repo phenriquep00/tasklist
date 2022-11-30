@@ -18,6 +18,8 @@ import { SideBarTasklistsUniqueList } from "./SideBarTasklistsUniqueList";
 interface SideBarTasklistsProps {
   email: string;
   isSideBarOpen: (arg0: boolean) => void;
+  forceTasklistUpdate: boolean;
+  setForceTasklistUpdate: (arg0: boolean) => void;
 };
 
 interface tasklistProps {
@@ -29,6 +31,8 @@ interface tasklistProps {
 export function SideBarTasklists({
   email,
   isSideBarOpen,
+  forceTasklistUpdate,
+  setForceTasklistUpdate,
 }: SideBarTasklistsProps) {
   const [tasklists, setTasklists] = useState([]);
   const { tasklist, setTasklist } = useContext(TasklistContext);
@@ -92,7 +96,8 @@ export function SideBarTasklists({
 
   useEffect(() => {
     getUserTasklists();
-  }, [tasklist]);
+    setForceTasklistUpdate(false);
+  }, [tasklist, forceTasklistUpdate]);
 
   return (
     <div className="flex flex-col gap-2 w-11/12 h-2/3 border-2 items-center border-ctp-overlay0 rounded p-2 overflow-y-scroll scrollbar">

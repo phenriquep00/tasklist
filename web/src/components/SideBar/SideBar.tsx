@@ -13,9 +13,11 @@ import { useHotkeys } from "react-hotkeys-hook";
 interface SideBarProps {
   isOpen: boolean;
   setIsOpen: (arg0: boolean) => void;
+  forceTasklistUpdate: boolean;
+  setForceTasklistUpdate: (arg0: boolean) => void;
 }
 
-export function SideBar({ isOpen, setIsOpen }: SideBarProps) {
+export function SideBar({ isOpen, setIsOpen, forceTasklistUpdate, setForceTasklistUpdate }: SideBarProps) {
   const { user, setUser } = useContext(UserContext);
   const [open, setOpen] = useState(false);
   const data = JSON.parse(user);
@@ -38,7 +40,7 @@ export function SideBar({ isOpen, setIsOpen }: SideBarProps) {
         <div className="z-10 flex flex-col gap-2 bg-ctp-mantle w-3/4 md:w-1/4 h-screen items-center justify-center rounded-r-md border-r-2 border-ctp-overlay1 transition-transform duration-300">
           <SideBarMenu closeSideBar={closeSideBar} />
           <SideBarProfileCard name={data.name} email={data.email} />
-          <SideBarTasklists email={data.email} isSideBarOpen={setIsOpen} />
+          <SideBarTasklists email={data.email} isSideBarOpen={setIsOpen} forceTasklistUpdate={forceTasklistUpdate} setForceTasklistUpdate={setForceTasklistUpdate}/>
           <Dialog.Root open={open} onOpenChange={setOpen}>
             <NewTaskModal isOpen={setOpen}/>
             <NewTaskModalButton />

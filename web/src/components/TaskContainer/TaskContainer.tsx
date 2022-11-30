@@ -16,9 +16,10 @@ interface TaskProps {
 
 interface TaskContainerProps {
   isSideBarOpen: boolean;
+  forceTasklistUpdate: (arg0: boolean) => void;
 }
 
-export function TaskContainer({ isSideBarOpen }: TaskContainerProps) {
+export function TaskContainer({ isSideBarOpen, forceTasklistUpdate }: TaskContainerProps) {
   const { user, setUser } = useContext(UserContext);
   const { tasklist, setTasklist } = useContext(TasklistContext);
 
@@ -78,6 +79,7 @@ export function TaskContainer({ isSideBarOpen }: TaskContainerProps) {
                   name={task.name}
                   createdAt={task.createdAt}
                   forceTaskUpdate={getTasks}
+                  forceTasklistUpdate={forceTasklistUpdate}
                 />
               ) : null
             )
@@ -90,7 +92,7 @@ export function TaskContainer({ isSideBarOpen }: TaskContainerProps) {
         )}
       </div>
 
-      <CreateTaskInput forceTaskUpdate={getTasks} />
+      <CreateTaskInput forceTaskUpdate={getTasks} forceTasklistUpdate={forceTasklistUpdate}/>
     </main>
   );
 }
