@@ -8,6 +8,7 @@ import {
   useEffect,
   useState,
 } from "react";
+import { useHotkeys } from "react-hotkeys-hook";
 import { TasklistContext } from "../../hooks/TasklistContext";
 import { UserContext } from "../../hooks/UserContext";
 import { supabase } from "../../supabaseClient";
@@ -17,13 +18,13 @@ import { SideBarTasklistsUniqueList } from "./SideBarTasklistsUniqueList";
 interface SideBarTasklistsProps {
   email: string;
   isSideBarOpen: (arg0: boolean) => void;
-}
+};
 
 interface tasklistProps {
   name: string;
   color: string;
   tasks: [];
-}
+};
 
 export function SideBarTasklists({
   email,
@@ -32,6 +33,14 @@ export function SideBarTasklists({
   const [tasklists, setTasklists] = useState([]);
   const { tasklist, setTasklist } = useContext(TasklistContext);
   const [isLoading, setIsLoading] = useState(false);
+
+  useHotkeys("ctrl + up", () => {
+    swapTasklist('up')
+  });
+
+  useHotkeys("ctrl + down", () => {
+    swapTasklist('down')
+  });
 
   const getUserTasklists = async () => {
     setIsLoading(true);
@@ -48,6 +57,39 @@ export function SideBarTasklists({
     setIsLoading(false);
   };
 
+  const getNumberOfTasks = (tasklistName: string) => {
+    let n: number = 0;
+    tasklists.map((tsk: any) => {
+      if (tsk !== null && tsk.name == tasklistName) {
+        tsk.tasks.map((task: any) => {
+          if (task !== null) {
+            n++;
+          }
+        });
+      }
+    });
+
+    return n;
+  };
+
+  const getCurrentTasklistIndex = (tasklistName:string) => {
+    let n:number = 0;
+    tasklists.map((tsk: any, index: number) => {
+      if (tsk !== null && tsk.name === tasklistName) n = index;
+    });
+    return n;
+  }
+
+  const swapTasklist = (direction: string) => {
+    let currentTasklsitIndex:number = getCurrentTasklistIndex(tasklist);
+
+    if (direction === 'up') {
+      console.log(currentTasklsitIndex);
+    } else if (direction === 'down') {
+      console.log('down')
+    }
+  };
+
   useEffect(() => {
     getUserTasklists();
   }, [tasklist]);
@@ -61,10 +103,11 @@ export function SideBarTasklists({
             <SideBarTasklistsUniqueList
               key={index}
               name={tasklist.name}
+              numberOfTasks={() => getNumberOfTasks(tasklist.name)}
               isSideBarOpen={isSideBarOpen}
             />
           )
       )}
     </div>
   );
-}
+};
