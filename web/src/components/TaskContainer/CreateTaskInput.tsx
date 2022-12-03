@@ -119,8 +119,8 @@ export function CreateTaskInput({ forceTaskUpdate, forceTasklistUpdate }: Create
     forceTasklistUpdate(true);
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
-    if (e.key === "Enter") {
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
+    if (event.key === "Enter") {
       handleCreateNewTask();
     }
   };
