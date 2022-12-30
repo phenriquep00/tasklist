@@ -7,19 +7,25 @@ import { SideBarProfileCard } from "./SideBarProfileCard";
 import { SideBarTasklists } from "./SideBarTasklists";
 import * as Dialog from "@radix-ui/react-dialog";
 import { NewTaskModal } from "../Modals/NewTasklistModal/NewTaskModal";
-import useWindowDimensions from "../../hooks/useWindowDimensions";
 import { useHotkeys } from "react-hotkeys-hook";
 
 interface SideBarProps {
   isOpen: boolean;
+  isMobile: boolean;
   setIsOpen: (arg0: boolean) => void;
   forceTasklistUpdate: boolean;
   setForceTasklistUpdate: (arg0: boolean) => void;
 }
 
-export function SideBar({ isOpen, setIsOpen, forceTasklistUpdate, setForceTasklistUpdate }: SideBarProps) {
+export function SideBar({
+  isOpen,
+  isMobile,
+  setIsOpen,
+  forceTasklistUpdate,
+  setForceTasklistUpdate,
+}: SideBarProps) {
   const { user, setUser } = useContext(UserContext);
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState<boolean>(isOpen);
   const data = JSON.parse(user);
 
   useHotkeys("ctrl + left", () => {
@@ -37,12 +43,21 @@ export function SideBar({ isOpen, setIsOpen, forceTasklistUpdate, setForceTaskli
   return (
     <>
       {isOpen ? (
-        <div className="z-10 flex flex-col gap-2 bg-ctp-mantle w-3/4 md:w-1/4 h-screen items-center justify-center rounded-r-md border-r-2 border-ctp-overlay1 transition-transform duration-300">
+        <div
+          className={`${
+            isMobile ? "w-full" : "w-1/4"
+          } flex flex-col gap-2 bg-ctp-mantle h-screen items-center justify-center rounded-r-md border-r-2 border-ctp-overlay1`}
+        >
           <SideBarMenu closeSideBar={closeSideBar} />
           <SideBarProfileCard name={data.name} email={data.email} />
-          <SideBarTasklists email={data.email} isSideBarOpen={setIsOpen} forceTasklistUpdate={forceTasklistUpdate} setForceTasklistUpdate={setForceTasklistUpdate}/>
+          <SideBarTasklists
+            email={data.email}
+            isSideBarOpen={setIsOpen}
+            forceTasklistUpdate={forceTasklistUpdate}
+            setForceTasklistUpdate={setForceTasklistUpdate}
+          />
           <Dialog.Root open={open} onOpenChange={setOpen}>
-            <NewTaskModal isOpen={setOpen}/>
+            <NewTaskModal isOpen={setOpen} />
             <NewTaskModalButton />
           </Dialog.Root>
         </div>
