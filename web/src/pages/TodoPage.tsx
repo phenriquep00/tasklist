@@ -32,6 +32,7 @@ export function TodoPage() {
       />
       <TaskContainer
         isSideBarOpen={isSideBarOpen}
+        isMobile={isMobile}
         forceTasklistUpdate={setForceTasklistUpdate}
       />
     </div>

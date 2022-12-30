@@ -1,23 +1,19 @@
 import { useContext, useEffect, useState } from "react";
 import { TasklistContext } from "../../hooks/TasklistContext";
-import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 interface SideBarTasklistsUniqueListProps {
   name: string;
   numberOfTasks: () => number;
   isSideBarOpen: (arg0: boolean) => void;
+  isMobile: boolean;
 }
 
 export function SideBarTasklistsUniqueList({
   name,
   numberOfTasks,
   isSideBarOpen,
+  isMobile,
 }: SideBarTasklistsUniqueListProps) {
-  const { height, width } = useWindowDimensions();
-  const [isMobile, setIsMobile] = useState(
-    height >= 700 && width >= 641 ? false : true
-  );
-
   const { tasklist, setTasklist } = useContext(TasklistContext);
 
   const handleSideBarTasklistsUniqueListClick = () => {

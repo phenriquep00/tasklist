@@ -53,6 +53,7 @@ export function SideBar({
           <SideBarTasklists
             email={data.email}
             isSideBarOpen={setIsOpen}
+            isMobile={isMobile}
             forceTasklistUpdate={forceTasklistUpdate}
             setForceTasklistUpdate={setForceTasklistUpdate}
           />
