@@ -3,18 +3,19 @@ import { TasklistContext } from "../../hooks/TasklistContext";
 import * as Dialog from "@radix-ui/react-dialog";
 import { DeleteModal } from "../Modals/DeleteModal/DeleteModal";
 import { DeleteModalButton } from "../Modals/DeleteModal/DeleteModalbutton";
-import useWindowDimensions from "../../hooks/useWindowDimensions";
 import { TaskContainerHeaderSearchBar } from "./TaskContainerHeaderSearchBar";
 import { supabase } from "../../supabaseClient";
 import { UserContext } from "../../hooks/UserContext";
 
-export function TaskContainerHeader() {
+interface TaskContainerHeaderProps {
+  isMobile: boolean;
+}
+
+export function TaskContainerHeader({ isMobile }: TaskContainerHeaderProps) {
   const { tasklist, setTasklist } = useContext(TasklistContext);
-  const { height, width } = useWindowDimensions();
   const [title, setTitle] = useState<string>(tasklist);
   const { user, setUser } = useContext(UserContext);
   const [isLoading, setIsloading] = useState(false);
-  const [forceUpdateTitle, setForceUpdateTitle] = useState(false);
   const data = JSON.parse(user);
   const tasklistRef = useRef<any>();
 
@@ -105,10 +106,10 @@ export function TaskContainerHeader() {
   return (
     <div
       className={`flex w-11/12  ${
-        height >= 700 && width >= 641 ? "flex-row" : "flex-col"
+        isMobile ? "flex-col" : "flex-row"
       } items-center justify-around gap-4`}
     >
-      <h1 className="flex md:text-4xl text-2xl font-bold truncate border-2 p-2 rounded-md border-ctp-overlay0">
+      <h1 className="flex md:text-4xl text-2xl w-full font-bold truncate border-2 p-2 rounded-md border-ctp-overlay0">
         {tasklist !== "" ? (
           <input
             className="bg-transparent text-center w-full text-ctp-text"
@@ -128,7 +129,7 @@ export function TaskContainerHeader() {
 
       {tasklist !== "" ? (
         <div className="flex flex-row max-w items-center gap-2 truncate">
-          <TaskContainerHeaderSearchBar />
+          {/* <TaskContainerHeaderSearchBar /> */}
 
           <Dialog.Root>
             <DeleteModal />

@@ -9,6 +9,7 @@ import { SideBarTasklistsUniqueList } from "./SideBarTasklistsUniqueList";
 interface SideBarTasklistsProps {
   email: string;
   isSideBarOpen: (arg0: boolean) => void;
+  isMobile: boolean;
   forceTasklistUpdate: boolean;
   setForceTasklistUpdate: (arg0: boolean) => void;
 }
@@ -22,6 +23,7 @@ interface tasklistProps {
 export function SideBarTasklists({
   email,
   isSideBarOpen,
+  isMobile,
   forceTasklistUpdate,
   setForceTasklistUpdate,
 }: SideBarTasklistsProps) {
@@ -91,6 +93,7 @@ export function SideBarTasklists({
               name={tasklist.name}
               numberOfTasks={() => getNumberOfTasks(tasklist.name)}
               isSideBarOpen={isSideBarOpen}
+              isMobile={isMobile}
             />
           )
       )}

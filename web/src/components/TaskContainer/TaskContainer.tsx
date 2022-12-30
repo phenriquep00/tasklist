@@ -2,7 +2,6 @@ import axios from "axios";
 import { useContext, useEffect, useState } from "react";
 import { TasklistContext } from "../../hooks/TasklistContext";
 import { UserContext } from "../../hooks/UserContext";
-import useWindowDimensions from "../../hooks/useWindowDimensions";
 import { supabase } from "../../supabaseClient";
 import { Loading } from "../Loading/Loading";
 import { CreateTaskInput } from "./CreateTaskInput";
@@ -16,19 +15,21 @@ interface TaskProps {
 
 interface TaskContainerProps {
   isSideBarOpen: boolean;
+  isMobile: boolean;
   forceTasklistUpdate: (arg0: boolean) => void;
 }
 
-export function TaskContainer({ isSideBarOpen, forceTasklistUpdate }: TaskContainerProps) {
+export function TaskContainer({
+  isSideBarOpen,
+  isMobile,
+  forceTasklistUpdate,
+}: TaskContainerProps) {
   const { user, setUser } = useContext(UserContext);
   const { tasklist, setTasklist } = useContext(TasklistContext);
 
   const [tasks, setTasks] = useState<any>([]);
   const [isLoading, setIsloading] = useState(false);
   const data = JSON.parse(user);
-
-  const { height, width } = useWindowDimensions();
-  const isMobile = height >= 600 && width >= 641 ? false : true;
 
   const getCurrentTasklistData = async () => {
     let totalTasklists = [];
@@ -67,7 +68,7 @@ export function TaskContainer({ isSideBarOpen, forceTasklistUpdate }: TaskContai
   // elsewise it will be rendered normally
   return isSideBarOpen && isMobile ? null : (
     <main className="flex flex-col w-3/4 h-screen items-center justify-between py-4">
-      <TaskContainerHeader />
+      <TaskContainerHeader isMobile={isMobile}/>
       <Loading active={isLoading} type="balls" size={60} />
       <div className="w-11/12 m-2 md:max-h-[80%] max-h-[70%] rounded-lg h-full flex p-2 flex-col gap-2 items-center overflow-y-scroll scrollbar border-2 border-ctp-overlay0">
         {tasklist !== "" ? (
@@ -92,7 +93,10 @@ export function TaskContainer({ isSideBarOpen, forceTasklistUpdate }: TaskContai
         )}
       </div>
 
-      <CreateTaskInput forceTaskUpdate={getTasks} forceTasklistUpdate={forceTasklistUpdate}/>
+      <CreateTaskInput
+        forceTaskUpdate={getTasks}
+        forceTasklistUpdate={forceTasklistUpdate}
+      />
     </main>
   );
 }
