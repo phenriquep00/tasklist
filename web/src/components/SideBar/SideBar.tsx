@@ -26,6 +26,7 @@ export function SideBar({
 }: SideBarProps) {
   const { user, setUser } = useContext(UserContext);
   const [open, setOpen] = useState<boolean>(isOpen);
+  const [ newTasklistModalOpen, setNewTasklistModalOpen] = useState<boolean>(false);
   const data = JSON.parse(user);
 
   useHotkeys("ctrl + left", () => {
@@ -57,8 +58,8 @@ export function SideBar({
             forceTasklistUpdate={forceTasklistUpdate}
             setForceTasklistUpdate={setForceTasklistUpdate}
           />
-          <Dialog.Root open={open} onOpenChange={setOpen}>
-            <NewTaskModal isOpen={setOpen} />
+          <Dialog.Root open={newTasklistModalOpen} onOpenChange={setNewTasklistModalOpen}>
+            <NewTaskModal isOpen={setNewTasklistModalOpen} />
             <NewTaskModalButton />
           </Dialog.Root>
         </div>
